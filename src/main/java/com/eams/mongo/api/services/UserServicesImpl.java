@@ -47,19 +47,39 @@ public class UserServicesImpl implements IUserServices {
 	public UserModel update_user_profile(UserModel data) {
 	
 		Optional<UserModel> findUser =  User.findById(data.getUserId());
-		if(findUser.isPresent()) {
-			 UserModel exUser = findUser.get();
-			 exUser.setUserName(data.getUserName());
-			 exUser.setEmail(data.getEmail());
-			 exUser.setMobileNumber(data.getMobileNumber());
-			 exUser.setPassword(data.getPassword());
-			 exUser.setFaceData(data.getFaceData()); 
-			 exUser.setLoginTime(data.getLoginTime());
-			 exUser.setLogOutTime(data.getLogOutTime());
-			 return exUser;
-		}
-		
-		return null;
+		  if (findUser.isPresent()) {
+		        UserModel exUser = findUser.get();
+
+		        if (data.getUserName() != null) {
+		            exUser.setUserName(data.getUserName());
+		        }
+		        if (data.getEmail() != null) {
+		            exUser.setEmail(data.getEmail());
+		        }
+		        if (data.getMobileNumber() != null) {
+		            exUser.setMobileNumber(data.getMobileNumber());
+		        }
+		        if (data.getPassword() != null) {
+		            exUser.setPassword(data.getPassword());
+		        }
+		        if (data.getFaceData() != null) {
+		            exUser.setFaceData(data.getFaceData());
+		        }
+		        if (data.getLoginTime() != null) {
+		            exUser.setLoginTime(data.getLoginTime());
+		        }
+		        if (data.getLogOutTime() != null) {
+		            exUser.setLogOutTime(data.getLogOutTime());
+		        }
+		        if (data.getIsActive() == true) {
+		        	 exUser.setIsActive(data.getIsActive());
+		        }
+		        System.out.println("Updating isActive: " + data.getIsActive());
+                 
+		        return  User.save(exUser);
+		    }
+
+		    return null;
 	}
 
 	@Override
@@ -103,6 +123,15 @@ public class UserServicesImpl implements IUserServices {
 		
 			return chkUser.orElse(null);
 		
+	}
+
+
+	@Override
+	public List<UserModel> list_of_all_users() {
+		
+		List<UserModel> chkUser = User.findAll();
+		
+		return chkUser;
 	}
 
 }

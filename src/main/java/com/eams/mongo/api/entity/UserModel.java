@@ -95,13 +95,13 @@ public void setLogOutTime(Date logOutTime) {
 /**
  * @return the isActive
  */
-public boolean isActive() {
+public boolean getIsActive() {
 	return isActive;
 }
 /**
  * @param isActive the isActive to set
  */
-public void setActive(boolean isActive) {
+public void setIsActive(boolean isActive) {
 	this.isActive = isActive;
 }
 }

@@ -100,7 +100,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/list_of_active_users")
-	public ResponseEntity<List<UserModel>> list_of_active_users(){
+	public ResponseEntity<List<UserModel>> listOfActiveUsers(){
 	List<UserModel>	 checkUsers = UserService.list_of_active_users();
 		if(checkUsers != null) {
 			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
@@ -109,13 +109,23 @@ public class UserController {
 	}
 	
 	@GetMapping("/list_of_inactive_users")
-	public ResponseEntity<List<UserModel>> list_of_Inactive_users(){
+	public ResponseEntity<List<UserModel>> listOfInactiveUsers(){
 	List<UserModel>	 checkUsers = UserService.list_of_inactive_users();
 		if(checkUsers != null) {
 			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
 		}
 		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping("/list_of_all_users")
+	public ResponseEntity<List<UserModel>> list_of_all_users(){
+	List<UserModel>	 checkUsers = UserService.list_of_all_users();
+		if(checkUsers != null) {
+			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
+		}
+		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
 	
 	 @DeleteMapping("/delete_user_profile")
      public ResponseEntity<?> deleteUserProfile(@RequestBody Map<String, String> data){
