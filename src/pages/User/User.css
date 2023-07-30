@@ -1,0 +1,1166 @@
+.SIdeBar {
+    background: #231f40;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  .circular-progress-container {
+    width: 129px;
+    height: 128px;
+    background-color: #fff;
+    border-radius: 50%;
+   font-weight: 500;
+  }
+
+  .SideContEnt.sub h6{
+    font-size: 22px;
+    text-align: center;
+  }
+  .flex-column.nav a {
+    color: #fff;
+    font-size: 21px;
+    margin-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .nav-link.Active {
+    background: #107b38;
+    border-radius: 4px;
+  }
+  
+  .flex-column.nav :hover {
+    background-color: #107b38;
+    border-radius: 4px;
+  }
+  
+  .SideContEnt h6 {
+    font-size: 22px;
+  }
+  
+  .AssSideContEnt h6 {
+    font-size: 22px;
+  }
+  
+  .BoxSideCon {
+    border: 1px solid #b8b7c1;
+    padding: 30px;
+    border-radius: 3px;
+    margin-top: 20px;
+  }
+  
+  .AssBoxSideCon {
+    border: 1px solid #bdeec9;
+    padding: 5px;
+    border-radius: 3px;
+    margin-top: 5px;
+  }
+  
+  .BoxSideCon h4 {
+    color: #231f40;
+    font-size: 25px;
+    font-weight: 700;
+  }
+  
+  .AssBoxSideCon h4 {
+    color: #231f40;
+    font-size: 25px;
+    font-weight: 700;
+  }
+  
+  .BoxSideCon h4 i {
+    color: #ff8800d9;
+    font-size: 35px;
+  }
+  
+  .AssBoxSideCon h4 i {
+    color: #ff8800d9;
+    font-size: 35px;
+  }
+  
+  .BoxSideCon h4 span {
+    color: #107b38;
+    font-weight: 700;
+  }
+  
+  .d-flex.SuB p {
+    font-weight: 500;
+    font-size: 17px;
+  }
+  
+  .Assd-flex.SuB p {
+    font-weight: 500;
+    font-size: 20px;
+    padding-top: 5px;
+    padding-left: 5px;
+  }
+  
+  .d-flex.SuB a {
+    margin-left: auto;
+    border: 1px solid #107b38;
+    padding: 8px 10px;
+    color: #231f40;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    border-radius: 3px;
+  }
+  
+  .Assd-flex.SuB a.Ass-start-box {
+    margin-right: 5px;
+    border: 1px solid #107b38;
+    padding: 7px 10px;
+    color: #231f40;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+    border-radius: 3px;
+    text-align: right;
+    float: right;
+    margin-top: -46px;
+  }
+  
+  .d-flex.SuB a:hover {
+    color: #fff;
+    background: #231f40;
+    border: #231f40;
+  }
+  
+  .Assd-flex.SuB a:hover {
+    color: #fff;
+    background: #231f40;
+    border: #231f40;
+  }
+  
+  .statUS {
+    background: #e9fff2;
+    padding: 7px;
+    margin: 5px 0;
+  }
+  
+  .progress,
+  .progress-stacked {
+    --bs-progress-bar-bg: #107b38;
+    background-color: transparent;
+  }
+  
+  .statUS h6 {
+    font-size: 14px;
+    color: #6f6b80;
+  }
+  
+  .statUS h6.Stastu {
+    margin-left: auto;
+  }
+  
+  .COurseConTEnt.Cour p {
+    color: #231f40;
+  }
+  
+  .BTNCerti {
+    background: #fff;
+    border: 1px solid #107b38;
+    margin-right: auto;
+    padding: 7px 5px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    color: #107b38;
+    border-radius: 3px;
+  }
+  
+  .BTNCerti:hover {
+    /* background: #107b38; */
+    color: #fff;
+  }
+  
+  .BTNCertihover {
+    /* background: #107b38; */
+    color: #107b38 !important;
+  }
+  .BTNCertihoverDisabled {
+    background: lightgray;
+    color: rgb(129, 129, 129) !important;
+    border: #6f6b80;
+  }
+  
+  .MainCOurSEdIV.CouR.Comp {
+    margin-bottom: 10px;
+  }
+  
+  .MainCOurSEdIV.CouR.Comp .SCetionCourse h6 {
+    margin: auto;
+    padding-top: 0;
+  }
+  
+  .MainCOurSEdIV.CouR.Comp .SCetionCourse p {
+    padding-top: 15px;
+  }
+  .OrderTABle table thead {
+  text-align: center;
+  }
+  .OrderTABle table th {
+    font-size: 17px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    background: #231f40;
+    border-radius: 1px;
+    color: #fff !important;
+    padding: 10px;
+  }
+  
+  .OrderTABle table tbody tr {
+    font-size: 15px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+  }
+  
+  .OrderTABle table tbody td {
+    border: 1px solid #b8b7c1;
+    border-right: none;
+    border-left: none;
+    border-radius: 10px;
+  }
+  
+  .OrderTABle table tbody td:first-child {
+    border-left: 1px solid #b8b7c1;
+  }
+  
+  .OrderTABle table tbody td:last-child {
+    border-right: 1px solid #b8b7c1;
+  }
+  
+  .table-hover>tbody>tr:hover>* {
+    --bs-table-bg-state: none;
+  }
+  
+  .OrderTABle table tbody td button {
+    border: 2px solid #107b38;
+    padding: 1px 10px;
+    font-size: 25px;
+    color: #107b38;
+    border-radius: 4px;
+    background: #fff;
+  }
+  
+  .table-sm> :not(caption)>*>* {
+    padding: 1.2rem 0.5rem;
+  }
+  
+  .SuceSSBox {
+    background: #107b38;
+    color: #fff !important;
+    padding: 25px;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+  
+  .SuceSSBox i {
+    font-size: 75px;
+  }
+  
+  .SuceSSBox h4 {
+    margin-top: 10px;
+    font-size: 28px;
+  }
+  
+  .SuceSSBox h5 {
+    font-size: 27px;
+    margin-top: 17px;
+  }
+  
+  .QUEstion.mt-3 {
+    padding: 20px;
+    border: 1px solid #b8b7c1;
+    border-radius: 5px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+  }
+  
+  .QUEstion.mt-3 label {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+  
+  .QUEstion.mt-3 p {
+    font-size: 18px;
+  }
+  
+  .Btn-Grn button {
+    margin-top: 27px;
+    background: #107b38;
+    color: #fff;
+    border: #107b38;
+    padding: 10px 45px;
+    font-size: 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .GrnBGTemp {
+    width: 80%;
+    align-self: center;
+  }
+  
+  .progressss {
+    width: 160px;
+    height: 150px !important;
+    float: left;
+    line-height: 150px;
+    background: none;
+    margin: 20px;
+    box-shadow: none;
+    position: relative;
+  }
+  
+  .progressss:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 12px solid #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .progressss>span {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
+  
+  .progressss .progress-left {
+    left: 0;
+  }
+  
+  .progressss .progress-bar {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border-width: 12px;
+    border-style: solid;
+    position: absolute;
+    top: 0;
+  }
+  
+  .progressss .progress-left .progress-bar {
+    left: 100%;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+    border-left: 0;
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+  }
+  
+  .progressss .progress-right {
+    right: 0;
+  }
+  
+  .progressss .progress-right .progress-bar {
+    left: -100%;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+    border-right: 0;
+    -webkit-transform-origin: center right;
+    transform-origin: center right;
+    animation: loading-1 1.8s linear forwards;
+  }
+  
+  .progressss .progress-value {
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 24px;
+    color: #231f40;
+    line-height: 135px;
+    text-align: center;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    font-family: "Roboto", sans-serif;
+    font-size: 42px;
+    font-weight: 500;
+  }
+  
+  .progressss.blue .progress-left .progress-bar {
+    animation: loading-2 1.5s linear forwards 1.8s;
+  }
+  
+  .progressss.yellow .progress-bar {
+    border-color: #107b38;
+  }
+  
+  .progressss.yellow .progress-right .progress-bar {
+    animation: loading-3 1.8s linear forwards;
+  }
+  
+  .progressss.yellow .progress-left .progress-bar {
+    animation: none;
+  }
+  
+  @keyframes loading-1 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  }
+  
+  @keyframes loading-3 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  }
+  
+  .Direct.d-flex {
+    background: #d4fbe4;
+    padding: 23px;
+    border-radius: 5px;
+  }
+  
+  .blueBox {
+    padding: 68px;
+    text-align: center;
+    background: #e5f4ff;
+    border-radius: 5px;
+    font-size: 59px;
+    margin-bottom: 20px;
+    min-height: 425px;
+  }
+  
+  .blueBox h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+  }
+  
+  .blueBox h6 {
+    font-size: 17px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+  }
+  
+  
+  .BookIcon.mb-2 {
+    background: #085893;
+    border-radius: 50%;
+    color: #fff;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .blueBox.orange {
+    background: #fceee4;
+  }
+  
+  .BookIcon.orange.mb-2 {
+    background: #cf6a1c;
+  }
+  
+  .blueBox.grn {
+    background: #e9fff2;
+  }
+  
+  .BookIcon.grn.mb-2 {
+    background: #107b38;
+  }
+  
+  .blueBox.vilot {
+    background: #f2e5ff;
+  }
+  
+  .BookIcon.vilot.mb-2 {
+    background: #7d0893;
+  }
+  
+  .ProFileForM {
+    border: 1px solid #b8b7c1;
+    border-radius: 3px;
+    padding: 20px 25px;
+  }
+  
+  .ProFi1 label {
+    margin-left: 10px;
+    margin-right: 30px;
+    font-family: "Roboto", sans-serif;
+    color: #231f40;
+    font-size: 18px;
+  }
+  
+  .ProFi input {
+    width: 100%;
+  }
+  
+  .ProFi input {
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid #b8b7c1;
+    padding: 0.25rem 0.75em;
+    margin-bottom: 15px;
+  }
+  
+  .ProFi label {
+    margin-top: 15px;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  
+  .ProFiBtn button {
+    margin-top: 10px;
+    background: #107b38;
+    border: #107b38;
+    color: #fff;
+    padding: 10px 45px;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    border-radius: 4px;
+  }
+  
+  .ProFiBtnBlur {
+    margin-top: 10px;
+    background: #c3dbcc;
+    border: #107b38;
+    color: #fff;
+    padding: 10px 45px;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    border-radius: 4px;
+    opacity: 0.7;
+  }
+  
+  .ProFiBtn hr {
+    margin-top: 25px;
+  }
+  
+  .col-12.d-flex button {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  button.editBtnPw {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .ProFi select {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: 1px solid #b8b7c1;
+    border-radius: 5px;
+    padding: 11px;
+  }
+  
+  .ProFi1 img {
+    border-radius: 50%;
+    height: 145px;
+    margin-bottom: 20px;
+  }
+  
+  .ProFi1 i {
+    position: absolute;
+    margin-left: 90px;
+    font-size: 25px;
+    color: #fff;
+    background: #107b38;
+    padding-bottom: 9px !important;
+    padding: 0px 10px;
+    border-radius: 50%;
+  }
+  
+  .SCetionCourse.d-flex.CouR p i {
+    color: #ffc107;
+    font-size: 20px;
+  }
+  .ProFiles.profileimg {
+    display: inline-flex;
+    padding-left: 0px;
+    gap: 12px;
+  }
+  .ProFi1.ProFiles {
+    padding-left: 0px;
+    display: flex;
+    justify-content: center;
+  }
+  .ProFi1.pswdInfo{
+    padding-left: 0px;
+  }
+  .ProFi1.addInfo{
+    padding-left: 0px;
+  }
+  .ProFi1.acadInfo{
+    padding-left: 0px;
+  }
+  .ProFi1.profInfo{
+    padding-left: 0px; 
+  }
+  .profile-img-area {
+    width: 33%;
+    margin: auto;
+    position: relative;
+  }
+  button.editbtn {
+    position: absolute;
+    right: -260px;
+  }
+  @media (min-width: 1200px) and (max-width: 1399px) {
+   
+    .OrderTABle table tbody tr {
+      font-size: 13px;
+    }
+  
+    .BTNCerti {
+      font-size: 13px;
+    }
+  }
+  
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .blueBox {
+      padding: 35px;
+    }
+  
+    .OrderTABle table tbody tr {
+      font-size: 12px;
+    }
+    .profile-img-area {
+      width: 38%;
+      margin: auto;
+      position: relative;
+  }
+  button.editbtn {
+    position: absolute;
+    right: -193px;
+  }
+  
+  }
+  
+  @media (min-width: 768px) and (max-width: 991px) {
+    .blueBox {
+      padding: 30px;
+    }
+  
+    .progressss>span {
+      width: 53%;
+    }
+  
+    .OrderTABle table tbody tr {
+      font-size: 12px;
+    }
+    .OrderTABle{
+      padding-top: 10px;
+    }
+    .progressss .progress-right .progress-bar {
+      left: -100%;
+      border-top-left-radius: 99px;
+      border-bottom-left-radius: 99px;
+    }
+  
+    .progressss {
+      width: 203px;
+    }
+  
+    .flex-column.nav a {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+  
+    .BTNCerti {
+      margin-right: 10px;
+    }
+  
+    .ProFi label {
+      font-size: 14px;
+    }
+    .profile-img-area {
+      width: 65%;
+      margin: auto;
+      position: relative;
+  }
+  button.editbtn {
+    position: absolute;
+    right: -65px;
+  }
+  .d-flex.SuB a {
+  
+    font-size: 13px;
+  }
+  }
+  
+  @media (min-width: 576px) and (max-width: 767px) {
+    .blueBox {
+      padding: 44px;
+    }
+  
+    .OrderTABle {
+      margin-top: 28px;
+    }
+  
+    .progressss {
+      width: 188px;
+    }
+  
+    .BTNCerti {
+      margin-right: 10px;
+    }
+  
+    .ProFi label {
+      font-size: 16px;
+    }
+  
+    .SuceSSBox {
+      margin-top: 20px;
+    }
+    .profile-img-area {
+      width: 53%;
+      margin: auto;
+      position: relative;
+  }
+  button.editbtn {
+    position: absolute;
+    right: -100px;
+  }
+  .flex-column.nav a {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .OrderTABle table tbody tr {
+    font-size: 8px;
+  }
+  .OrderTABle table th {
+    font-size: 13px;
+  }
+  .OrderTABle table tbody td button {
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+  .ProFiBtn button {
+    padding: 9px 25px;
+    font-size: 14px;
+  }
+  .ProFi1.pswdInfo h4{
+    font-size: 17px !important;
+  }
+  button.editBtnPw {
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.addInfo h4{
+    font-size: 17px !important;
+  }
+  button.editAddrs{
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.acadInfo h4{
+    font-size: 15px !important;
+  }
+  button.editAcad{
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.profInfo h4{
+    font-size: 17px !important;
+  }
+  button.editProf{
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.ProFiles h4 {
+    font-size: 17px;
+  }
+  .Direct{
+    margin-top: 10px;
+  }
+  .d-flex.SuB a {
+    font-size: 13px;
+  }
+  .SideContEnt{
+    margin-top: 20px;
+  
+  }
+  }
+  @media (min-width: 481px) and (max-width: 575px) {
+    .profile-img-area {
+      width: 61%;
+      margin: auto;
+      position: relative;
+  }
+  button.editbtn {
+    position: absolute;
+    right: -76px;
+  }
+  .flex-column.nav a {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .OrderTABle table tbody tr {
+    font-size: 7px;
+  }
+  .OrderTABle table th {
+    font-size: 10px;
+  }
+  .OrderTABle table tbody td button {
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+  .OrderTABle{
+    padding-top: 10px;
+  }
+  .ProFiBtn button {
+    padding: 9px 25px;
+    font-size: 14px;
+  }
+  .ProFi1.pswdInfo h4{
+    font-size: 17px !important;
+  }
+  button.editBtnPw {
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.addInfo h4{
+    font-size: 17px !important;
+  }
+  button.editAddrs{
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.acadInfo h4{
+    font-size: 15px !important;
+  }
+  button.editAcad{
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.profInfo h4{
+    font-size: 17px !important;
+  }
+  button.editProf{
+    font-size: 16px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.ProFiles h4 {
+    font-size: 17px;
+  }
+  .Direct{
+    margin-top: 10px;
+  }
+  .d-flex.SuB a {
+    font-size: 13px;
+  }
+  .SideContEnt{
+    margin-top: 20px;
+  
+  }
+  }
+  @media (min-width: 321px) and (max-width: 480px) {
+    .profile-img-area {
+      width: 100%;
+      margin: auto;
+      position: relative;
+  }
+  button.editbtn {
+    right: -10px;
+    font-size: 13px !important;
+    padding-top: 7px;
+  }
+  .flex-column.nav a {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .OrderTABle table tbody tr {
+    font-size: 5px;
+  }
+  .OrderTABle table th {
+    font-size: 7px;
+  }
+  .OrderTABle table tbody td button {
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+  .OrderTABle{
+    padding-top: 10px;
+  }
+  .ProFiBtn button {
+    padding: 9px 25px;
+    font-size: 12px;
+  }
+  .ProFi1.pswdInfo h4{
+    font-size: 15px !important;
+  }
+  button.editBtnPw {
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.addInfo h4{
+    font-size: 15px !important;
+  }
+  button.editAddrs{
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.acadInfo h4{
+    font-size: 15px !important;
+  }
+  button.editAcad{
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.profInfo h4{
+    font-size: 15px !important;
+  }
+  button.editProf{
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.ProFiles h4 {
+    font-size: 15px;
+  }
+  .d-flex.SuB a {
+    font-size: 7px;
+    padding: 7px 10px;
+  }
+  .BoxSideCon h4 {
+    color: #231f40;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .d-flex.SuB p {
+    font-weight: 500;
+    font-size: 8px;
+  }
+  .BoxSideCon {
+    padding: 12px;
+  }
+  }
+  @media (min-width: 0px) and (max-width: 320px) {
+    .profile-img-area {
+      width: 100%;
+      margin: auto;
+      position: relative;
+  }
+  button.editbtn {
+  
+    right: -10px;
+    font-size: 13px !important;
+    padding-top: 7px;
+  }
+  .ProFi1.pswdInfo h4{
+    font-size: 15px !important;
+  }
+  button.editBtnPw {
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.addInfo h4{
+    font-size: 15px !important;
+  }
+  button.editAddrs{
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.acadInfo h4{
+    font-size: 15px !important;
+  }
+  button.editAcad{
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .ProFi1.profInfo h4{
+    font-size: 15px !important;
+  }
+  button.editProf{
+    font-size: 15px !important;
+    margin-top: -10px;
+  }
+  .flex-column.nav a {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .OrderTABle table tbody tr {
+    font-size: 7px;
+  }
+  .OrderTABle table th {
+    font-size: 10px;
+  }
+  .OrderTABle table tbody td button {
+    padding: 1px 6px;
+    font-size: 11px;
+  }
+  .OrderTABle{
+    padding-top: 10px;
+  }
+  .ProFiBtn button {
+    padding: 9px 25px;
+    font-size: 12px;
+  }
+  .d-flex.SuB a {
+    font-size: 7px;
+    padding: 7px 10px;
+  }
+  .BoxSideCon h4 {
+    color: #231f40;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .d-flex.SuB p {
+    font-weight: 500;
+    font-size: 8px;
+  }
+  .BoxSideCon {
+    padding: 12px;
+  }
+  }
+  @media (max-width: 575px) {
+    .blueBox {
+      padding: 20px 195px;
+    }
+  
+    .BTNCerti {
+      margin-right: 10px;
+    }
+  
+    .ButtONComp.d-flex.mb-3 {
+      justify-content: center;
+    }
+  
+    .ProFi label {
+      font-size: 14px;
+    }
+  
+    .SuceSSBox h5 {
+      font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 532px) {
+    .blueBox {
+      padding: 25px 161px;
+    }
+  
+    .Direct.d-flex {
+      display: inline-block !important;
+    }
+  
+    .SideContEnt {
+      margin-top: 25px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .blueBox {
+      padding: 25px 120px;
+    }
+  
+    .ProFi label {
+      font-size: 13px;
+    }
+  }
+  
+  @media (max-width: 413px) {
+    .blueBox {
+      padding: 25px 93px;
+    }
+  }
+  
+  @media (max-width: 350px) {
+    .blueBox {
+      padding: 25px 53px;
+    }
+    .profileimg{
+      display: flex;
+      align-items: center;
+    }
+    .editbtn{
+      position: absolute;
+      right: 16px;
+      margin-top: -37px;
+    }
+  }
+  @media (min-width: 320px) and (max-width: 479px){
+  .ProFi1.profileimg {
+      padding-left: 0px;
+      display: inline;
+  }
+  .ProFi1.ProFiles  h4 {
+  font-size: 15px;
+  }
+  .ProFiles.profileimg label {
+    font-size: 13px;
+    }
+    
+    .ProFi input {
+      width: 100%;
+      height: 45px;
+      border-radius: 5px;
+      border: 1px solid #b8b7c1;
+      padding: 0.25rem 0.75em;
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+    .Direct{
+      margin-top: 10px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 991px){
+  .ProFi1.profileimg {
+      padding-left: 0px;
+  }
+  }
+  @media (min-width: 992px) and (max-width: 1023px){
+  .ProFi1.profileimg {
+    padding-left: 211px;
+  }}
+  @media (min-width: 1024px) and (max-width: 1199px){
+  .ProFi1.profileimg {
+      padding-left: 170px;
+  }
+  }
+  .img-fluid.border {
+    border: 1px solid #b8b7c1 !important;
+    padding: 10px 15px;
+  }
+  
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  
+  
+  .ProFipadd {
+    margin-top: 52px;
+  }
+  
+  select:disabled {
+    opacity: 1;
+    color: black;
+  }

@@ -1,0 +1,1757 @@
+/* .searchcontents{
+  background: white;
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  padding: 10px;
+  z-index: 1;
+} */
+.notification-badge {
+  background-color: green;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 3px;
+  right: -8px;
+  font-size: 14px;
+}
+.modalnotfr {
+  background-color: #e9fff2;
+  width: 27%;
+  height: 300px;
+  z-index: 1;
+  position: absolute;
+  right: 128px;
+  top: 69px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  overflow-y: auto; /* Enable vertical scrollbar */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: transparent transparent; /* For Firefox (hide scrollbar) */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge (hide scrollbar) */
+  scrollbar-width: none; /* For Chrome, Safari, and Opera (hide scrollbar) */
+}
+.modalsearch {
+  background-color: #ffffff;
+  width: 100%;
+  height: 300px;
+  z-index: 1;
+  position: absolute;
+  right: 0px;
+  top: 59px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.modalcon{
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+}
+.modalnotfr::-webkit-scrollbar {
+  width: 0.5em; /* For Chrome, Safari, and Opera */
+}
+
+.modalnotfr::-webkit-scrollbar-thumb {
+  background-color: transparent; /* For Chrome, Safari, and Opera (hide scrollbar) */
+}
+
+.modalnotfr::-webkit-scrollbar-track {
+  background-color: transparent; /* For Chrome, Safari, and Opera (hide scrollbar) */
+}
+
+
+.modalsearch::-webkit-scrollbar {
+  width: 0.5em; /* For Chrome, Safari, and Opera */
+}
+
+.modalsearch::-webkit-scrollbar-thumb {
+  background-color: transparent; /* For Chrome, Safari, and Opera (hide scrollbar) */
+}
+
+.modalsearch::-webkit-scrollbar-track {
+  background-color: transparent; /* For Chrome, Safari, and Opera (hide scrollbar) */
+}
+.nottime {
+
+  color: rgb(16, 123, 56);
+ float: right;
+}
+.nothead {
+  text-align: center;
+  background: #fff;
+  height: 48px;
+  padding-top: 12px;
+  font-weight: 700;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notmsg{
+  display: flex;
+}
+
+.notification-item.active {
+  background-color: white; /* Background color when notification is clicked */
+}
+/* .notification-item{
+  width: 520px;
+  padding-left: 171px;
+  padding-right:10px ;
+  padding-top: 10px;
+  padding-bottom: 65px;
+  background-color: #e9fff2;;
+  cursor: pointer;
+  height: 66px;
+  line-height:29px;
+} */
+.notification-item{
+  /* background-color: #e9fff2;; */
+  cursor: pointer;
+  /* height: 66px; 
+  line-height: 34px; */
+  position: relative;
+  padding: 7px 14px;
+}
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  white-space: pre-line; /* Preserve newline characters */
+}
+
+.timestamp {
+  color: #107B38;
+  align-self: flex-end;
+}
+.form-control:focus {
+  box-shadow: none;
+}
+
+.notifyhr {
+  margin-top: 7px !important;
+  margin-left: -4px !important;
+  height: 1px;
+  width: 100%;
+  background-color: #bfbfbf;
+
+}
+
+.searchcontents {
+  background: white;
+  position: absolute;
+  width: 425px;
+  max-height: 341px;
+  overflow-y: auto;
+  left: 482px;
+  top: 68px;
+  padding-left: 8px;
+  z-index: 1;
+}
+
+.educatorsSearch {
+  font-size: small;
+  top: -26px;
+  position: relative;
+  left: 92px
+}
+
+.edutitle {
+  display: grid;
+  align-content: center;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.header {
+  background: #F8F8F8;
+}
+
+.CallNUmber p,
+.MAilConTEnet p {
+  margin-bottom: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+.CallIcon i {
+  color: #107B38;
+  font-size: 20px;
+  padding: 5px 8px;
+}
+
+.CallIcon {
+  border: 1px solid #075792;
+  border-radius: 50px;
+
+  margin-top: 9px;
+  background-color: #fff;
+}
+
+.hTOp {
+  padding: 10px 5px;
+}
+
+.CallNUmber,
+.MAilConTEnet {
+  margin-left: 10px;
+}
+
+.MailIcons i {
+  font-size: 18px;
+  color: #107B38;
+  padding: 3px 4px;
+  margin-top: -6px;
+}
+
+.MailIcons {
+  border: 1px solid #075792;
+  border-radius: 50px;
+  height: 30px;
+  width: 30px;
+  padding: 3px;
+  margin-top: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.MailUS {
+  justify-content: center;
+}
+
+.CallNUmber a,
+.MAilConTEnet a {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #231F40;
+}
+
+.form-control.search {
+  border-radius: 50px;
+  border-right: none;
+  border: 1px solid #BCBAC4;
+  border-right: none !important;
+}
+
+.btn.btn-outline-secondary {
+  border-radius: 0px 25px 25px 0px !important;
+  border: 1px solid #BCBAC4;
+  border-left: none;
+  background: #fff;
+}
+
+.notification {
+  background-color: #fff;
+  text-decoration: none;
+  padding: 0px 8px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  color: #107B38;
+  border-radius: 50%;
+  border: 1px solid #085893;
+  font-size: 20px;
+  margin-top: 3px;
+  padding-bottom: 6px;
+}
+
+.Icons a {
+  margin-right: 9px;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  padding: 2px 6px;
+  border-radius: 40%;
+  background-color: #107B38;
+  color: white;
+}
+
+.Icons.ml-2 {
+  margin-left: 8px;
+}
+
+.SignUpBtn {
+  margin-left: 15px;
+  background: #107B38;
+  padding: 7px 22px;
+  cursor: pointer;
+  margin-top: 7px;
+  border-radius: 5px;
+}
+
+.SignUpBtn:hover {
+  background: #231F40;
+}
+
+.btn.btn-outline-secondary {
+  font-size: 20px;
+  padding-top: 0;
+  color: #107B38;
+}
+
+.SignUpBtn a {
+  color: #fff;
+  font-size: 18px;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 600;
+}
+
+.SignUpBtn a i {
+  font-size: 18px;
+}
+
+.input-group {
+  padding-top: 6px;
+}
+
+.hEAderIcons.d-flex {
+  padding-top: 8px;
+}
+
+.CallNUmber a:hover {
+  color: #085893;
+}
+
+.MAilConTEnet a:hover {
+  color: #085893;
+}
+
+/* menu */
+.MEnu ul li {
+  display: inline;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.MEnu {
+  background: #107B38;
+}
+
+.menu ul li a {
+  padding-right: 70px;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.menu ul li a {
+
+  color: #fff;
+}
+
+.menu {
+  padding-top: 15px;
+}
+
+ul.justify-content-center.d-flex {
+  padding-left: 0px;
+}
+
+.menu ul li:nth-child() {
+  padding-right: 0px;
+}
+
+.justify-content-center.d-flex .socialMEDia li a {
+  padding: 10px;
+}
+
+.BTNtopHead {
+  background: transparent;
+  border: none;
+  color: #fff;
+  display: flex;
+}
+
+.popImg {
+  width: 70%;
+  overflow: hidden;
+  position: relative;
+  height: 650px;
+}
+
+.popImg img {
+  transform: scale(1.4);
+  position: absolute;
+  top: 90px;
+  height: 476px;
+  left: 62px;
+}
+
+.PopConteNt {
+  text-align: center;
+  padding: 25px 10px;
+  width: 50%;
+  padding-top: 40px;
+}
+
+.LogO img {
+  width: 185px;
+  margin-bottom: 10px;
+}
+
+.PopConteNt h2 {
+  font-size: 25px;
+  margin-bottom: 0;
+  font-weight: 700;
+  font-weight: 500;
+  padding-top: 9px;
+
+}
+
+.modal-body {
+  padding: 0px;
+  height: 0;
+}
+
+.modaldialog .modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 0px;
+  pointer-events: none;
+}
+
+.POPrigh p {
+  font-size: 16px;
+}
+
+/* .POPrigh.pt-2 input {
+  margin-left: 30px;
+  margin-right: 5px;
+} */
+
+.POPrigh.pt-2 label {
+  font-size: 17px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.POPrigh.pt-2 .form-control {
+  margin-right: 0;
+  border-right: none;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.input-group-text {
+  border-left: none;
+  background-color: #fff;
+
+}
+
+.input-group-text {
+  font-size: 24px;
+  color: #107B38;
+}
+
+.Fpas {
+  margin-left: auto;
+}
+
+.d-flex.signup label {
+  color: #B7B6BD;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.Fpas a {
+  color: #231F40;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.Fpas a:hover {
+  color: #107B38;
+}
+
+.POPrigh.pt-2 button {
+  background: #107B38;
+  border: #107B38;
+  color: #fff;
+  padding: 5px 26px;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 20px;
+  width: 100%;
+  /* margin-left: 9% !important; */
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.POPrigh.OnE.pt-2 label {
+  font-weight: 400;
+  line-height: 28px;
+  font-size: 18px;
+}
+
+.pt-5.SUbLow p {
+  margin-bottom: 0;
+}
+
+.pt-5.SUbLow a {
+  color: #107B38;
+  font-size: 15px;
+}
+
+.SignUpBtn button {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.LogO {
+  padding-bottom: 10px;
+}
+
+.POPrigh.OnE.pt-2 input {
+  margin-left: 0;
+}
+
+.PopCheCkBOX.optionss {
+  text-align: left;
+  padding: 0px 40px;
+}
+
+.PopCheCkBOX.optionss input {
+  margin-right: 10px;
+}
+
+/* ------------------mobile menu------------------------------- */
+.mobile-menu {
+  display: none;
+}
+
+/* .justify-content-center.d-flex li a:hover {
+  color: #085893;
+} */
+
+/* ----------------------------------------------------------------------------------- */
+/* media */
+/* ---------------------------------------------------------------------------------- */
+@media (min-width: 1700px) and (max-width: 1800px) {
+  .bannerContenT a {
+    margin-left: -310px;
+  }
+
+  .bannerContenT h1 {
+    margin-left: 0;
+  }
+
+  .bannerContenT h2 {
+    margin-left: 0;
+  }
+
+}
+
+@media (min-width: 1600px) and (max-width: 1699px) {
+  .bannerContenT a {
+    margin-left: -310px;
+  }
+
+  .bannerContenT h1 {
+    margin-left: -30px;
+  }
+
+  .bannerContenT h2 {
+    margin-left: -30px;
+  }
+
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .bannerContenT a {
+    margin-left: -340px;
+  }
+
+  .bannerContenT h1 {
+    margin-left: -95px;
+  }
+
+  .bannerContenT h2 {
+    margin-left: -95px;
+  }
+}
+
+@media (min-width: 1300px) and (max-width: 1399px) {
+  .bannerContenT a {
+    position: relative;
+    left: auto;
+    right: 0;
+    margin-left: -420px;
+  }
+
+  .bannerContenT h1 {
+    margin-left: -50px;
+  }
+
+  .bannerContenT h2 {
+    margin-left: -50px;
+  }
+
+}
+
+@media (min-width: 1200px) and (max-width: 1299px) {
+  .bannerContenT a {
+    position: relative;
+    left: auto;
+    right: 0;
+    margin-left: -450px;
+  }
+
+  .bannerContenT h1 {
+    margin-left: -95px;
+    margin-top: -339px;
+  }
+
+  .bannerContenT h2 {
+    margin-left: -95px;
+
+  }
+
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+
+  .CallNUmber,
+  .MAilConTEnet {
+    margin-left: 6px;
+  }
+
+  .SignUpBtn button {
+    font-weight: 604;
+    font-size: 14px;
+  }
+
+  .SignUpBtn {
+    margin-left: 10px;
+  }
+
+  .menu ul li a {
+    padding-right: 50px;
+  }
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .menu ul li a {
+    padding-right: 25px;
+  }
+
+  .modal-content {
+    left: -50% !important;
+
+  }
+  .input-group.signinmod{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    padding-top: 6px;
+    margin-left: 0px;
+    position: relative;
+    width: 100%;
+    margin-top: 10px; /* Your desired top margin */
+    margin-bottom: 10px; 
+  }
+  .input-group {
+    padding-top: 6px;
+    margin-left: -65px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+.modalnotfr {
+  background-color: #e9fff2;
+  width: 315px;
+  height: 300px;
+  z-index: 1;
+  position: absolute;
+  right: -140px;
+  top: 59px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+  .HeADcaLL.d-flex {
+    display: none !important;
+  }
+
+  .SignUpBtn button {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .SignUpBtn {
+    margin-right: -68px;
+    right: 49px;
+    background: #107B38;
+    padding: 7px 22px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 5px;
+  }
+  .hEAderIcons.d-flex {
+    padding-top: 8px;
+    left: -54px;
+    position: relative;
+}
+  .bannerContenT h1 {
+    color: #107B38;
+    font-size: 60px;
+    margin-top: -350px;
+    margin-left: -24px;
+  }
+
+  .bannerContenT h2 {
+    margin-left: -24px;
+  }
+
+  .bannerContenT a {
+    position: relative;
+    left: auto;
+    right: 0;
+    margin-left: -294px;
+  }
+}
+
+@media  (min-width: 768px) and (max-width: 991px)  {
+  .popImg img {
+    transform: scale(1.4);
+    position: absolute;
+    top: 90px;
+    height: 476px;
+    left: 0px;
+  }
+   .Logo {
+      text-align: center;
+    position: absolute;
+    margin-bottom: 25px;
+    width: 134px;
+    height: 35px;
+    left: 20px;
+  }
+  
+  .menu ul li a {
+    padding-right: 25px;
+  }
+
+  .modal-content {
+    left: -50% !important;
+
+  }
+  .input-group {
+   position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 275px;
+    padding-top: 6px;
+    margin-left: -224px;
+}
+.input-group.signinmod{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  padding-top: 6px;
+  margin-left: 0px;
+  margin-top: 10px; /* Your desired top margin */
+  margin-bottom: 10px; 
+}
+
+  .modalnotfr {
+    background-color: #e9fff2;
+    width: 315px;
+    height: 300px;
+    z-index: 1;
+    position: absolute;
+    left: -82px;
+    top: 59px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  
+}
+  .HeADcaLL.d-flex {
+    display: none !important;
+  }
+
+  .SignUpBtn button {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .SignUpBtn {
+    margin-right: -156px;
+    right: 129px;
+    background: #107B38;
+    padding: 7px 22px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 5px;
+  }
+  .hEAderIcons.d-flex {
+      padding-top: 8px;
+    left: -115px;
+    position: relative;
+}
+  .bannerContenT h1 {
+    color: #107B38;
+    font-size: 60px;
+    margin-top: -350px;
+    margin-left: -24px;
+  }
+
+  .bannerContenT h2 {
+    margin-left: -24px;
+  }
+
+  .bannerContenT a {
+    position: relative;
+    left: auto;
+    right: 0;
+    margin-left: -294px;
+  }
+}
+@media (min-width: 700px) and (max-width: 767px) {
+  .SignUpBtn {
+    margin-right: -170px;
+    right: 78px;
+    background: #107B38;
+    padding: 7px 22px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 5px;
+}
+.input-group {
+  position: relative;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: stretch;
+   width: 275px;
+   padding-top: 6px;
+   margin-left: -76px;
+}
+}
+@media (min-width: 576px) and (max-width: 699px) {
+  .SignUpBtn {
+    margin-right: -170px;
+    right: 78px;
+    background: #107B38;
+    padding: 7px 22px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 5px;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 177px;
+  padding-top: 6px;
+  margin-left: -9px;
+}
+.hEAderIcons.d-flex {
+  padding-top: 8px;
+  left: -95px;
+  position: relative;
+}
+}
+@media (min-width: 700px) and (max-width: 767px) {
+  .SignUpBtn {
+    margin-right: -87px;
+    right: 9px;
+    background: #107B38;
+    padding: 7px 22px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 5px;
+  }
+}
+@media (min-width: 576px) and (max-width: 699px) {
+  .SignUpBtn {
+    margin-right: -132px;
+    right: 108px;
+    background: #107B38;
+    padding: 7px 22px;
+    position: relative;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 5px;
+  }
+}
+ @media (min-width: 576px) and (max-width: 768px) {
+  .Logo {
+      text-align: center;
+    position: absolute;
+    margin-bottom: 25px;
+    width: 134px;
+    height: 35px;
+    left: 20px;
+  }
+
+  .menu ul li a {
+    padding-right: 25px;
+  }
+
+  .modal-content {
+    left: -50% !important;
+
+  }
+ 
+.input-group.signinmod{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  padding-top: 6px;
+  margin-left: 0px;
+  margin-top: 10px; /* Your desired top margin */
+  margin-bottom: 10px; 
+}
+.modalsearch {
+  top: 45px;
+}
+.modalnotfr {
+  background-color: #e9fff2;
+  width: 316px;
+  height: 300px;
+  z-index: 1;
+  position: absolute;
+  left: -81px;
+  top: 59px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+}
+  .HeADcaLL.d-flex {
+    display: none !important;
+  }
+
+  .SignUpBtn button {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .bannerContenT h1 {
+    color: #107B38;
+    font-size: 60px;
+    margin-top: -350px;
+    margin-left: -24px;
+  }
+
+  .bannerContenT h2 {
+    margin-left: -24px;
+  }
+
+  .bannerContenT a {
+    position: relative;
+    left: auto;
+    right: 0;
+    margin-left: -294px;
+  }
+} 
+@media (min-width: 700px) and (max-width: 767px) {
+  .modalnotfr {
+    background-color: #e9fff2;
+    width: 316px;
+    height: 300px;
+    z-index: 1;
+    position: absolute;
+    left: 370px;
+    top: 59px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  
+  }
+}
+@media (min-width: 992px) and (max-width: 1099px) {
+  .bannerContenT h1 {
+    font-size: 60px;
+    margin-top: -350px;
+    margin-left: -85px;
+  }
+
+  .bannerContenT h2 {
+
+    margin-left: -85px;
+  }
+
+  .bannerContenT a {
+    position: relative;
+    left: auto;
+    right: 0;
+    margin-left: -375px;
+  }
+
+}
+
+@media (min-width: 0px) and (max-width: 991px) {
+  ul.justify-content-center.d-flex {
+    padding-left: 0px;
+    display: none !important;
+  }
+  .signinbtn{
+    display: none;
+     }
+  .modal-content {
+    left: -25% !important;
+    width: 150% !important;
+  }
+
+  .POPrigh.pt-2 label {
+    width: 65%;
+    text-align: initial;
+  }
+
+  .col-lg-2.CallHaed {
+    display: none;
+  }
+
+  .POPrigh.pt-2 input[type="radio"] {
+    margin-right: 4px;
+    margin-left: 35px !important;
+  }
+
+  .MEnu {
+    background: #107B38;
+    height: 50px;
+    position: relative;
+  }
+
+  .mobile-menu {
+    position: absolute;
+    display: block;
+    top: 155px;
+    left: 150px;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 35px;
+    transition: all 0.3s ease;
+
+  }
+
+ 
+
+  .HeADcaLL.d-flex {
+    display: none !important;
+  }
+
+
+
+}
+@media (min-width: 0px) and (max-width: 320px) {
+
+  .mobile-menu {
+    top: -7px !important;
+    right: 39px;
+    left: 10px;
+  }
+
+  .mobile-lIstmeNu {
+    display: grid;
+    position: absolute;
+    background: #107B38;
+    z-index: 111;
+    padding: 15px;
+    padding-left: 15px;
+    padding-left: 32px !important;
+    line-height: 36px;
+    left: 0;
+    width: 53%;
+    top: 76%;
+    font-size: 13px;
+  
+}
+.input-group.signinmod{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  padding-top: 6px;
+  margin-left: 0px;
+  margin-top: 10px; /* Your desired top margin */
+  margin-bottom: 10px; 
+}
+.Logo {
+  text-align: center;
+  margin-bottom: 9px !important;
+  width: 45%;
+  margin: auto;
+
+
+}
+.hEAderIcons.d-flex {
+  padding-top: 8px;
+  left: -21px;
+  position: relative;
+}
+.SignUpBtn {
+  right: 27px;
+  background: #107B38;
+  padding: 7px 22px;
+  cursor: pointer;
+  margin-top: 7px;
+  border-radius: 5px;
+  position: relative;
+}
+}
+@media (min-width: 321px) and (max-width: 480px) {
+  .modalnotfr {
+    background-color: #e9fff2;
+    width: 315px;
+    height: 300px;
+    z-index: 1;
+    position: absolute;
+    right: 4px;
+    top: 159px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+}
+@media (min-width: 481px) and (max-width: 575px) {
+  .modalnotfr {
+   
+      background-color: #e9fff2;
+      width: 315px;
+      height: 300px;
+      z-index: 1;
+      position: absolute;
+      right: 4px;
+      top: 176px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      min-height: 300px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+}
+@media (min-width: 321px) and (max-width: 575px) {
+  .mobile-menu {
+    top: 167px;
+    left: 39px;
+  }
+
+  .menu ul li a {
+    padding-right: 10px;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .Logo {
+    width: 40%;
+    margin: auto;
+    margin-bottom: 15px;
+  }
+
+  .Fpas {
+    margin-left: auto;
+    margin-top: -3px;
+  }
+
+  .popImg {
+    display: none;
+  }
+
+  .modal-content {
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  .PopConteNt {
+    width: 100%;
+  }
+
+  .POPrigh.pt-2 label {
+    width: auto;
+    text-align: initial;
+  }
+
+  .mobile-lIstmeNu {
+    top: 22%;
+  }
+
+  .SignUpBtn button {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+}
+@media (min-width: 0px) and (max-width: 320px) {
+  .menu ul li a {
+    padding-right: 10px;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+  }
+  .MEnu ul li {
+    display: inline;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    left: 0px;
+}
+.modalnotfr {
+  background-color: #e9fff2;
+  width: 315px;
+  height: 300px;
+  z-index: 1;
+  position: absolute;
+  right: -114px;
+  top: 59px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #107B38;
+  opacity: 1;
+  min-width: 178px !important;
+  z-index: 1;
+  top: -28px !important;
+  left: 102px;
+  padding-top: 19px;
+  padding-bottom: 10px;
+}
+}
+
+
+@media (min-width: 0px) and (max-width: 480px) {
+  
+  .SignUpBtn button {
+    font-weight: 600;
+    font-size: 15px;
+  }
+}
+
+
+@media (min-width: 321px) and (max-width: 375px) {
+.mobile-menu {
+    top: 169px !important;
+    right: 432px;
+    left: 0px;
+}
+.mobile-lIstmeNu {
+  display: grid;
+  position: absolute;
+  background: #107B38;
+  z-index: 111;
+  padding: 15px;
+  padding-left: 15px;
+  padding-left: 15px;
+  padding-left: 15px;
+  padding-left: 32px !important;
+  line-height: 45px;
+  left: 0;
+  width: 53%;
+  top: 54%;
+}
+.modalsearch {
+   top: 45px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #107B38;
+  opacity: 1;
+  min-width: 178px !important;
+  z-index: 1;
+  top: -28px !important;
+  left: 102px;
+  padding-top: 19px;
+  padding-bottom: 10px;
+}
+}
+
+@media (min-width: 321px) and (max-width: 375px) {
+  .mobile-menu {
+    top: -13px !important;
+    right: 432px;
+    left: 0px;
+  }
+
+.mobile-lIstmeNu {
+  display: grid;
+  position: absolute;
+  background: #107B38;
+  z-index: 111;
+  padding: 15px;
+  padding-left: 32px !important;
+  line-height: 36px;
+  left: 0;
+  width: 53%;
+  top: 76%;
+  font-size: 13px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #107B38;
+  opacity: 1;
+  min-width: 162px !important;
+  z-index: 1;
+  top: -28px !important;
+  left: 102px;
+  padding-top: 19px;
+  padding-bottom: 10px;
+  font-size: 13px;
+}
+
+}
+@-moz-document url-prefix() {
+  @media screen and (min-width: 321px) and (max-width: 480px) {
+    .mobile-menu {
+      top: -12px !important;
+      left: 20px;
+      z-index: 99999;
+  }
+  }
+}
+
+@media (min-width: 376px) and (max-width: 480px) {
+  .mobile-menu {
+    -moz-top: -14px !important;
+    top: -8px !important;
+    left: 20px;
+    z-index: 99999;
+}
+
+.mobile-lIstmeNu {
+  display: grid;
+  position: absolute;
+  background: #107B38;
+  z-index: 111;
+  padding: 15px;
+  padding-left: 15px;
+  padding-left: 15px;
+  padding-left: 15px;
+  padding-left: 32px !important;
+  line-height: 45px;
+  left: 0;
+  width: 45%;
+  top: 98%;
+}
+.modalsearch {
+  top: 45px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #107B38;
+  opacity: 1;
+  min-width: 193px !important;
+  z-index: 1;
+  top: -20px !important;
+  left: 102px;
+  padding-top: 19px;
+  padding-bottom: 10px;
+}
+}
+@media (min-width: 481px) and (max-width: 575px) {
+  .mobile-menu {
+    top: -7px !important;
+    left: 20px;
+    z-index: 99999;
+}
+
+.mobile-lIstmeNu {
+  display: grid;
+  position: absolute;
+  background: #107B38;
+  z-index: 111;
+  padding: 15px;
+  padding-left: 15px;
+  padding-left: 15px;
+  padding-left: 15px;
+  padding-left: 32px !important;
+  line-height: 45px;
+  left: 0;
+  width: 40%;
+  top: 98%;
+}
+.modalsearch {
+  top: 45px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #107B38;
+  opacity: 1;
+  min-width: 193px !important;
+  z-index: 1;
+  top: -28px !important;
+  left: 150px;
+  padding-top: 19px;
+  padding-bottom: 10px;
+}
+
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .menu ul li a {
+    padding-right: 36px;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .mobile-menu {
+    top: -7px !important;
+    left: 20px;
+    z-index: 99999;
+}
+
+.mobile-lIstmeNu {
+  display: grid;
+  position: absolute;
+  background: #107B38;
+  z-index: 111;
+  padding: 15px;
+  padding-left: 15px;
+  padding-left: 15px;
+  padding-left: 32px !important;
+  line-height: 45px;
+  left: 0;
+  width: 36%;
+  top: 98%;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #107B38;
+  opacity: 1;
+  min-width: 192px !important;
+  z-index: 1;
+  top: -18px !important;
+  left: 150px;
+  padding-top: 19px;
+  padding-bottom: 10px;
+}
+  
+.popImg {
+  display: none;
+}
+
+.modal-content {
+  left: 0 !important;
+  width: 100% !important;
+}
+
+.PopConteNt {
+  width: 100%;
+}
+
+.POPrigh.pt-2 label {
+  width: auto;
+  text-align: initial;
+}
+
+.Fpas {
+  margin-left: auto;
+  margin-top: -3px;
+}
+}
+
+.PopCheCkBOX input {
+  margin-bottom: 20px;
+}
+
+.POPrigh.pt-2 input[type="radio"] {
+  border-radius: 5px;
+  height: 18px;
+  width: 20px;
+  margin-right: 4px;
+  margin-left: 15px;
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .menu ul li a {
+    padding-right: 36px;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #107B38;
+    opacity: 1;
+    min-width: 196px !important;
+    z-index: 1;
+    top: -18px !important;
+    left: 150px;
+    padding-top: 19px;
+    padding-bottom: 10px;
+  }
+  .mobile-lIstmeNu {
+    top: 29%;
+  }
+  .mobile-menu {
+    top: -7px !important;
+    left: 20px;
+    z-index: 99999;
+}
+.mobile-lIstmeNu {
+  display: grid;
+  position: absolute;
+  background: #107B38;
+  z-index: 111;
+  padding: 15px;
+  padding-left: 15px;
+  padding-left: 32px !important;
+  line-height: 45px;
+  left: 0;
+  width: 29%;
+  top: 98%;
+}
+}
+/* modal */
+.modal-content {
+  left: -38%;
+  width: 200%;
+  min-height: 652px;
+}
+
+.contentdiv {
+  height: 48px;
+}
+@media (min-width: 768px) and (max-width: 903px) {
+  .input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 275px;
+    padding-top: 6px;
+    margin-left: -182px;
+}
+}
+@media (min-width: 320px) and (max-width: 379px) {
+  .POPrigh.pt-2 label {
+    width: 67%;
+    text-align: initial;
+  }
+
+  .POPrigh.pt-2 input[type="radio"] {
+    margin-right: 25px;
+    margin-left: 15px;
+  }
+}
+
+ .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #107B38;
+  opacity: 1;
+  min-width: 230px;
+  z-index: 1;
+   top: 25px;
+  /*left: -10px;
+  padding-top: 19px;
+  padding-bottom: 10px; */
+  line-height: 20px;
+} 
+
+.dropdown-content li span {
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+}
+
+
+/* Media query start */
+@media (min-width: 1440px) {
+}
+
+/* X-Large devices (large desktops, less than 1400px) */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+
+
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .wrapperleft h1 {
+    font-size: 24px;
+    padding-top: 11px;
+    text-transform: uppercase;
+  }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .wrapperleft h1 {
+    font-size: 22px;
+    padding-top: 11px;
+    text-transform: uppercase;
+  }
+}
+
+
+
+@media (min-width: 0px) and (max-width: 320px) {
+  .notification-dot {
+    height: 8px;
+    width: 8px;
+    background-color: #d3483d;
+    border-radius: 50%;
+    border: 1px solid white;
+    display: inline-block;
+    position: relative;
+    top: -9px;
+    left: -12px;
+  }
+}
+
+.userDetails {
+  position: relative;
+}
+
+.Logout-btn {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #107B38;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.userDetails:hover .Logout-btn {
+  display: block;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .wrapperleft h1 {
+    font-size: 22px;
+    padding-top: 11px;
+    text-transform: uppercase;
+  }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+/* @media (max-width: 767.98px) {
+ 
+  .modalnotfr {
+    display: none;
+  }
+ 
+} */
+/* @media screen and (max-width: 991px) {
+  
+
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dropdown {
+    position: static; 
+    margin: 10px 0;
+  }
+
+  .dropdown > a {
+    cursor: pointer; 
+  }
+} */
