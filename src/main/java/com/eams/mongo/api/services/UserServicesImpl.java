@@ -45,38 +45,64 @@ public class UserServicesImpl implements IUserServices {
 
 	@Override
 	public UserModel update_user_profile(UserModel data) {
-		// TODO Auto-generated method stub
+	
+		Optional<UserModel> findUser =  User.findById(data.getUserId());
+		if(findUser.isPresent()) {
+			 UserModel exUser = findUser.get();
+			 exUser.setUserName(data.getUserName());
+			 exUser.setEmail(data.getEmail());
+			 exUser.setMobileNumber(data.getMobileNumber());
+			 exUser.setPassword(data.getPassword());
+			 exUser.setFaceData(data.getFaceData()); 
+			 exUser.setLoginTime(data.getLoginTime());
+			 exUser.setLogOutTime(data.getLogOutTime());
+			 return exUser;
+		}
+		
 		return null;
 	}
 
 	@Override
 	public UserModel fetch_user_profile(UserModel userId) {
-		// TODO Auto-generated method stub
+		
+		Optional<UserModel> findUser =  User.findById(userId.getUserId());
+		if(findUser.isPresent()) {
+			return findUser.get();
+		}
 		return null;
 	}
 
 	@Override
 	public List<UserModel> list_of_active_users() {
-		// TODO Auto-generated method stub
-		return null;
+		List<UserModel> activelist = User.findActiveUsers();
+		return activelist;
 	}
 
 	@Override
 	public List<UserModel> list_of_inactive_users() {
-		// TODO Auto-generated method stub
-		return null;
+		List<UserModel> inActivelist = User.findInActiveUsers();
+		return inActivelist;
 	}
 
 	@Override
-	public UserModel delete_user_profile(UserModel userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserModel delete_user_profile(String userId) {
+		Optional<UserModel > checkUser= User.findById(userId);
+		
+		if(checkUser.isPresent()) {
+			User.deleteById(userId);
+			return checkUser.get();
+		}else {
+			return null;
+		}
+		
 	}
 
 	@Override
-	public UserModel user_login(UserModel data) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserModel user_login(String email) {
+		Optional<UserModel > chkUser = User.findByEmail(email);
+		
+			return chkUser.orElse(null);
+		
 	}
 
 }

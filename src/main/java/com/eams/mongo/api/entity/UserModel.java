@@ -24,6 +24,7 @@ public class UserModel {
   private String mobileNumber;
    @NonNull
   private String password;
+  private boolean isActive;
   private String faceData;
   private Date loginTime;
   private Date logOutTime;
@@ -90,6 +91,18 @@ public Date getLogOutTime() {
  */
 public void setLogOutTime(Date logOutTime) {
 	this.logOutTime = logOutTime;
+}
+/**
+ * @return the isActive
+ */
+public boolean isActive() {
+	return isActive;
+}
+/**
+ * @param isActive the isActive to set
+ */
+public void setActive(boolean isActive) {
+	this.isActive = isActive;
 }
 }
 

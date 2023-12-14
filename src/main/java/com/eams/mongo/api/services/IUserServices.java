@@ -13,7 +13,7 @@ public interface IUserServices {
 	UserModel fetch_user_profile(UserModel userId);
     List<UserModel> list_of_active_users();
     List<UserModel> list_of_inactive_users();
-	UserModel delete_user_profile(UserModel userId);
-	UserModel user_login(UserModel data);
+	UserModel delete_user_profile(String userId);
+	UserModel user_login(String email);
 
 }
