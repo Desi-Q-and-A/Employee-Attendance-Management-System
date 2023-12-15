@@ -2,12 +2,14 @@ package com.eams.mongo.api.entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+
 
 @Data
 @NoArgsConstructor
@@ -16,13 +18,13 @@ public class UserModel {
    @Id
     private String userId;
    
-   @NonNull
+   @NotNull(message = "User name is required")
   private String userName;
-   @NonNull
+   @NotNull(message = "Email is required")
   private String email;
-   @NonNull
+   @NotNull(message = "Mobile number is required")
   private String mobileNumber;
-   @NonNull
+   @NotNull(message = "Password is required")
   private String password;
   private boolean isActive;
   private String faceData;

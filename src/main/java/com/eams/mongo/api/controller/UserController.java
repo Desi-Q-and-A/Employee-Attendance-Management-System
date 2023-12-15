@@ -8,7 +8,6 @@ import java.util.Optional;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import com.eams.mongo.api.entity.UserModel;
+import com.eams.mongo.api.responses.SuccessHandler;
+import com.eams.mongo.api.responses.SuccessResponse;
 import com.eams.mongo.api.services.IUserServices;
 
 
@@ -34,9 +35,24 @@ public class UserController {
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserModel data) {
 	    try {
-	        Optional<UserModel> exUser = UserService.existing_user(data.getMobileNumber(), data.getEmail());
+	    	
+	    	if (data.getUserName() == null || data.getUserName().isBlank()) {
+	    	    return ResponseEntity.status(400).body("User name is required");
+	    	}
+	    	if (data.getMobileNumber() == null || data.getMobileNumber().isBlank()) {
+	    	    return ResponseEntity.status(400).body("Mobile Number is required");
+	    	}
+	    	if (data.getEmail() == null || data.getEmail().isBlank()) {
+	    	    return ResponseEntity.status(400).body("Email is required");
+	    	}
+	    	if (data.getPassword() == null || data.getPassword().isBlank()) {
+	    	    return ResponseEntity.status(400).body("password is required");
+	    	}
+	    	
+	        Optional<UserModel> exUser = UserService.existing_user(data.getMobileNumber(),data.getEmail());
+	        //System.out.println(exUser);
 
-	        if (exUser != null) {
+	        if (exUser != null && exUser.isPresent() ) {
 	            UserModel existingUser = exUser.get();
 
 	            if (existingUser.getMobileNumber().equals(data.getMobileNumber())) {
@@ -55,14 +71,14 @@ public class UserController {
 	        }
 
 	        return ResponseEntity.status(200).body(newUser);
-	    } catch (IncorrectResultSizeDataAccessException e) {
-	        // Log the exception or handle it in a way that makes sense for your application
-	        return ResponseEntity.status(500).body("Internal Server Error: " + e.getMessage());
-	    }
+	    }  catch (Exception e) {
+            // Handle validation error
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<Object> userLogin (@RequestBody UserModel user){
+	public ResponseEntity<SuccessResponse> userLogin (@RequestBody UserModel user){
 		UserModel exUser = UserService.user_login( user.getEmail());
 		
 		 if (exUser != null && exUser.getPassword().equals(user.getPassword())) {
@@ -73,9 +89,9 @@ public class UserController {
 	                    .setSubject(user.getEmail())
 	                    .signWith(secretKey)
 	                    .compact();
-;		      return ResponseEntity.ok().body("{'status': true,'token': '" + genJWTToken + "', 'message': 'Login successful'}");
+;		    return SuccessHandler.res(true, "Login successful", Optional.of(genJWTToken));
 		    } else {
-		        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{'status': false, 'message': 'Invalid credential !!!'}");
+		    	return	SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
 		    }
 	}
 	

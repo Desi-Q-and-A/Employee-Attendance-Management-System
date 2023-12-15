@@ -7,7 +7,7 @@ import com.eams.mongo.api.entity.UserModel;
 
 public interface IUserServices {
 	
-	 Optional<UserModel> existing_user(String mobileNumber , String email);
+	 Optional<UserModel> existing_user(String mobileNumber, String email);
 	UserModel register_user(UserModel userdata);
 	UserModel update_user_profile(UserModel data);
 	UserModel fetch_user_profile(UserModel userId);

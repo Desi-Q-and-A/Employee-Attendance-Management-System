@@ -16,30 +16,18 @@ public class UserServicesImpl implements IUserServices {
 	UserRepository User;
 	
 	@Override
-	public Optional<UserModel> existing_user(String mobileNumber ,String email) {
+	public Optional<UserModel> existing_user(String mobileNumber, String email) {
 		
-		 Optional<UserModel> exUser =User.findByMobileNumberOrEmail(mobileNumber, email);
+		 Optional<UserModel> exUser =User.findByMobileNumberOrEmail(mobileNumber,email);
 
-        if (exUser.isPresent()) {
-        	UserModel user = exUser.get();
-
-            if (user.getMobileNumber() != null && user.getMobileNumber().equals(mobileNumber)) {
-                return Optional.empty();
-            }
-
-            if (user.getEmail() != null && user.getEmail().equals(email)) {
-                return Optional.empty();
-            }
-        }
-
-        return null;
+        return exUser;
 		
 	}
 
 
 	@Override
 	public UserModel register_user(UserModel userdata) {
-		// TODO Auto-generated method stub
+
 		return User.save(userdata);
 	}
 
@@ -74,7 +62,7 @@ public class UserServicesImpl implements IUserServices {
 		        if (data.getIsActive() == true) {
 		        	 exUser.setIsActive(data.getIsActive());
 		        }
-		        System.out.println("Updating isActive: " + data.getIsActive());
+		       
                  
 		        return  User.save(exUser);
 		    }
