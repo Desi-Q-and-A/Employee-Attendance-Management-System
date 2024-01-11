@@ -54,7 +54,7 @@ export const userCartWishNameInfo =
   export const userPersonalDetail =
   (callback = () => {}) =>
   async (dispatch) => {
-    var result = await Helper.getData(baseUrl + "user/personnelInfo").then(
+    var result = await Helper.getData(baseUrl + "user/fetch_user_profile").then(
       (response) => response.data
     );
     callback(result);

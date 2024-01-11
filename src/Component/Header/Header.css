@@ -137,7 +137,7 @@
 }
 
 .timestamp {
-  color: #107B38;
+  color: #208ce9;
   align-self: flex-end;
 }
 .form-control:focus {
@@ -193,7 +193,7 @@
 }
 
 .CallIcon i {
-  color: #107B38;
+  color: #208ce9;
   font-size: 20px;
   padding: 5px 8px;
 }
@@ -217,7 +217,7 @@
 
 .MailIcons i {
   font-size: 18px;
-  color: #107B38;
+  color: #208ce9;
   padding: 3px 4px;
   margin-top: -6px;
 }
@@ -268,7 +268,7 @@
   position: relative;
   display: inline-block;
   border-radius: 2px;
-  color: #107B38;
+  color: #208ce9;
   border-radius: 50%;
   border: 1px solid #085893;
   font-size: 20px;
@@ -286,7 +286,7 @@
   right: -4px;
   padding: 2px 6px;
   border-radius: 40%;
-  background-color: #107B38;
+  background-color: #208ce9;
   color: white;
 }
 
@@ -296,7 +296,7 @@
 
 .SignUpBtn {
   margin-left: 15px;
-  background: #107B38;
+  background: #208ce9;
   padding: 7px 22px;
   cursor: pointer;
   margin-top: 7px;
@@ -310,7 +310,7 @@
 .btn.btn-outline-secondary {
   font-size: 20px;
   padding-top: 0;
-  color: #107B38;
+  color: #208ce9;
 }
 
 .SignUpBtn a {
@@ -349,7 +349,7 @@
 }
 
 .MEnu {
-  background: #107B38;
+  background:#208ce9;
 }
 
 .menu ul li a {
@@ -464,7 +464,7 @@ ul.justify-content-center.d-flex {
 
 .input-group-text {
   font-size: 24px;
-  color: #107B38;
+  color: #208ce9;
 }
 
 .Fpas {
@@ -484,12 +484,12 @@ ul.justify-content-center.d-flex {
 }
 
 .Fpas a:hover {
-  color: #107B38;
+  color: #208ce9;
 }
 
 .POPrigh.pt-2 button {
-  background: #107B38;
-  border: #107B38;
+  background: #208ce9;
+  border: #208ce9;
   color: #fff;
   padding: 5px 26px;
   font-size: 20px;
@@ -513,7 +513,7 @@ ul.justify-content-center.d-flex {
 }
 
 .pt-5.SUbLow a {
-  color: #107B38;
+  color: #208ce9;
   font-size: 15px;
 }
 
@@ -715,7 +715,7 @@ ul.justify-content-center.d-flex {
   .SignUpBtn {
     margin-right: -68px;
     right: 49px;
-    background: #107B38;
+    background: #208ce9;
     padding: 7px 22px;
     position: relative;
     cursor: pointer;
@@ -728,7 +728,7 @@ ul.justify-content-center.d-flex {
     position: relative;
 }
   .bannerContenT h1 {
-    color: #107B38;
+    color: #208ce9;
     font-size: 60px;
     margin-top: -350px;
     margin-left: -24px;
@@ -822,7 +822,7 @@ ul.justify-content-center.d-flex {
   .SignUpBtn {
     margin-right: -156px;
     right: 129px;
-    background: #107B38;
+    background: #208ce9;
     padding: 7px 22px;
     position: relative;
     cursor: pointer;
@@ -835,7 +835,7 @@ ul.justify-content-center.d-flex {
     position: relative;
 }
   .bannerContenT h1 {
-    color: #107B38;
+    color: #208ce9;
     font-size: 60px;
     margin-top: -350px;
     margin-left: -24px;
@@ -856,7 +856,7 @@ ul.justify-content-center.d-flex {
   .SignUpBtn {
     margin-right: -170px;
     right: 78px;
-    background: #107B38;
+    background: #208ce9;
     padding: 7px 22px;
     position: relative;
     cursor: pointer;
@@ -877,7 +877,7 @@ ul.justify-content-center.d-flex {
   .SignUpBtn {
     margin-right: -170px;
     right: 78px;
-    background: #107B38;
+    background: #208ce9;
     padding: 7px 22px;
     position: relative;
     cursor: pointer;
@@ -903,7 +903,7 @@ ul.justify-content-center.d-flex {
   .SignUpBtn {
     margin-right: -87px;
     right: 9px;
-    background: #107B38;
+    background: #208ce9;
     padding: 7px 22px;
     position: relative;
     cursor: pointer;
@@ -915,7 +915,7 @@ ul.justify-content-center.d-flex {
   .SignUpBtn {
     margin-right: -132px;
     right: 108px;
-    background: #107B38;
+    background: #208ce9;
     padding: 7px 22px;
     position: relative;
     cursor: pointer;
@@ -985,7 +985,7 @@ ul.justify-content-center.d-flex {
   }
 
   .bannerContenT h1 {
-    color: #107B38;
+    color: #208ce9;
     font-size: 60px;
     margin-top: -350px;
     margin-left: -24px;
@@ -1072,7 +1072,7 @@ ul.justify-content-center.d-flex {
   }
 
   .MEnu {
-    background: #107B38;
+    background: #208ce9;
     height: 50px;
     position: relative;
   }
@@ -1110,7 +1110,7 @@ ul.justify-content-center.d-flex {
   .mobile-lIstmeNu {
     display: grid;
     position: absolute;
-    background: #107B38;
+    background: #208ce9;
     z-index: 111;
     padding: 15px;
     padding-left: 15px;
@@ -1148,7 +1148,7 @@ ul.justify-content-center.d-flex {
 }
 .SignUpBtn {
   right: 27px;
-  background: #107B38;
+  background: #208ce9;
   padding: 7px 22px;
   cursor: pointer;
   margin-top: 7px;
@@ -1283,7 +1283,7 @@ ul.justify-content-center.d-flex {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #107B38;
+  background-color: #208ce9;
   opacity: 1;
   min-width: 178px !important;
   z-index: 1;
@@ -1313,7 +1313,7 @@ ul.justify-content-center.d-flex {
 .mobile-lIstmeNu {
   display: grid;
   position: absolute;
-  background: #107B38;
+  background: #208ce9;
   z-index: 111;
   padding: 15px;
   padding-left: 15px;
@@ -1331,7 +1331,7 @@ ul.justify-content-center.d-flex {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #107B38;
+  background-color: #208ce9;
   opacity: 1;
   min-width: 178px !important;
   z-index: 1;
@@ -1352,7 +1352,7 @@ ul.justify-content-center.d-flex {
 .mobile-lIstmeNu {
   display: grid;
   position: absolute;
-  background: #107B38;
+  background: #208ce9;
   z-index: 111;
   padding: 15px;
   padding-left: 32px !important;
@@ -1365,7 +1365,7 @@ ul.justify-content-center.d-flex {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #107B38;
+  background-color: #208ce9;
   opacity: 1;
   min-width: 162px !important;
   z-index: 1;
@@ -1398,7 +1398,7 @@ ul.justify-content-center.d-flex {
 .mobile-lIstmeNu {
   display: grid;
   position: absolute;
-  background: #107B38;
+  background: #208ce9;
   z-index: 111;
   padding: 15px;
   padding-left: 15px;
@@ -1416,7 +1416,7 @@ ul.justify-content-center.d-flex {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #107B38;
+  background-color: #208ce9;
   opacity: 1;
   min-width: 193px !important;
   z-index: 1;
@@ -1436,7 +1436,7 @@ ul.justify-content-center.d-flex {
 .mobile-lIstmeNu {
   display: grid;
   position: absolute;
-  background: #107B38;
+  background: #208ce9;
   z-index: 111;
   padding: 15px;
   padding-left: 15px;
@@ -1454,7 +1454,7 @@ ul.justify-content-center.d-flex {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #107B38;
+  background-color: #208ce9;
   opacity: 1;
   min-width: 193px !important;
   z-index: 1;
@@ -1481,7 +1481,7 @@ ul.justify-content-center.d-flex {
 .mobile-lIstmeNu {
   display: grid;
   position: absolute;
-  background: #107B38;
+  background: #208ce9;
   z-index: 111;
   padding: 15px;
   padding-left: 15px;
@@ -1495,7 +1495,7 @@ ul.justify-content-center.d-flex {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #107B38;
+  background-color: #208ce9;
   opacity: 1;
   min-width: 192px !important;
   z-index: 1;
@@ -1551,7 +1551,7 @@ ul.justify-content-center.d-flex {
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #107B38;
+    background-color: #208ce9;
     opacity: 1;
     min-width: 196px !important;
     z-index: 1;
@@ -1571,7 +1571,7 @@ ul.justify-content-center.d-flex {
 .mobile-lIstmeNu {
   display: grid;
   position: absolute;
-  background: #107B38;
+  background: #208ce9;
   z-index: 111;
   padding: 15px;
   padding-left: 15px;
@@ -1618,7 +1618,7 @@ ul.justify-content-center.d-flex {
  .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #107B38;
+  background-color: #208ce9;
   opacity: 1;
   min-width: 230px;
   z-index: 1;
@@ -1705,7 +1705,7 @@ ul.justify-content-center.d-flex {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #107B38;
+  background-color: #208ce9;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;

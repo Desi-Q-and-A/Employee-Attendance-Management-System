@@ -50,7 +50,7 @@ export const userRegisterCb =
 export const userLoginCb =
   (data, callback = () => {}) =>
   async (dispatch) => {
-    var result = await Helper.postData(baseUrl + "aaa/auth/signIn", data).then(
+    var result = await Helper.postData(baseUrl + "user/login", data).then(
       (response) => response.data
     );
     callback(result);

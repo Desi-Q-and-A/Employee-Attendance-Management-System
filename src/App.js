@@ -1,7 +1,8 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { useState} from "react";
+import Header from "./Component/Header/Header";
+
 
 import Profile from "./pages/User/Profile";
 
@@ -12,18 +13,13 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { jwtDecode } from "jwt-decode"
-import { loader, isLogin } from "./redux/common";
-import Home from "./pages/Home/Home";
-import LoginPage from "./pages/User/LoginPage";
+import {  isLogin } from "./redux/common";
+
+
 import Login from "./pages/User/Login";
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-  // Define the onCategorySelect function
-  const onCategorySelect = (selectedCategory) => {
-    setSelectedCategory(selectedCategory);
-  };
+  
   const loaderStatus = useSelector((state) => state.apiReducer.loader);
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,18 +43,9 @@ function App() {
 
   return (
     <>
-      <TailSpin
-        height="100"
-        width="80"
-        color="#107B38"
-        ariaLabel="tail-spin-loading"
-        radius="1"
-        wrapperStyle={{}}
-        wrapperClass="tailSpin"
-        visible={loaderStatus}
-      />
+     
       
-
+<Header/>
       <Routes>
         <Route path="/" element={<Login />} />
        

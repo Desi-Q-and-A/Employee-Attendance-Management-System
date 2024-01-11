@@ -18,7 +18,6 @@ import {
   AiOutlineShoppingCart,
   AiOutlineUser,
   AiOutlineLock,
-  AiOutlineUnlock,
   AiOutlineClose,
   AiOutlineEye,
   AiOutlineEyeInvisible
@@ -353,16 +352,7 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
     const formattedMinutes = minutes.toString().padStart(2, '0');
 
     return `${formattedHours}:${formattedMinutes}${period}`;
-  };
-
-  const formatDateWithTime = (date) => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const time = formatTime(date);
-
-    return `${day}/${month}/${year} ${time}`;
-  };
+  }
 
 
   return (
@@ -374,11 +364,11 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
               <div className="col-lg-2 col-md-6 col-sm-3">
                 <div className="Logo">
                   <Link to="/">
-                    <img src={Logo} alt="" className="img-fluid" />
+                    <h1></h1>
                   </Link>
                 </div>
               </div>
-              <div className="col-lg-2 CallHaed">
+              {/* <div className="col-lg-2 CallHaed">
                 <div className="HeADcaLL d-flex">
                   <div className="CallIcon">
                     <i>
@@ -391,14 +381,14 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
                     <a href="tel:+919004214077">+91 90042 14077</a>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="col-lg-4 col-md-3 col-sm-3">
                 <div class="input-group" ref={inputRef}>
                   <input
                     type="text"
                     class="form-control search"
-                    placeholder="Search"
+                    placeholder="Search peoples"
                     value={inputValue}
                    
 
@@ -407,6 +397,7 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
                   <button
                     class="btn btn-outline-secondary"
                     type="button"
+                    
 
                   >
                     <FiSearch />
@@ -484,24 +475,6 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
                       </div>
                     )}
 
-                        <div className="Icons ml-2">
-                          <Link to="/wishlist" class="notification">
-                            <span>
-                              <AiOutlineHeart />
-                            </span>
-                            <span class="badge">
-                              {cartCount.itemsInWishlist}
-                            </span>
-                          </Link>
-                        </div>
-                        <div className="Icons ml-2">
-                          <Link to="/cart" class="notification">
-                            <span>
-                              <AiOutlineShoppingCart />
-                            </span>
-                            <span class="badge">{cartCount.itemsInCart}</span>
-                          </Link>
-                        </div>
                       </div>
                       <div className="SignUpBtn">
                         <button
@@ -620,7 +593,7 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
                     <Link to="/">Home</Link>
                   </li>
                   <li className="dropdown">
-                    <Link to="/course">Course</Link>
+                    <Link to="/tasks">Tasks</Link>
 
 
                     <ul className="dropdown-content">
@@ -629,13 +602,16 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
 
                   </li>
                   <li>
-                    <Link to="">Live Programs</Link>
+                    <Link to="">Projects</Link>
                   </li>
                   <li>
-                    <Link to="/blog">Blogs</Link>
+                    <Link to="/blog">Efficiency</Link>
                   </li>
                   <li>
-                    <Link to="/faq">FAQ</Link>
+                    <Link to="/worktime">Work Time</Link>
+                  </li>
+                  <li>
+                    <Link to="/workreports">Work Reports</Link>
                   </li>
                   <li>
                     <Link to="/about">About Us</Link>
@@ -643,12 +619,10 @@ console.log("selectedNotificationIndex", selectedNotificationIndex)
                   <li>
                     <Link to="/contact">Contact Us</Link>
                   </li>
-                  <li>
-                    <Link to="/educator">Join as Educator</Link>
-                  </li>
+                  
                   <div className="socialMEDia">
                     <li>
-                      <Link to="https://www.facebook.com/kareersity">
+                      <Link to="/">
                         <FaFacebookF />
                       </Link>
                     </li>

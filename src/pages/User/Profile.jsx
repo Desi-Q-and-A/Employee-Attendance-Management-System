@@ -7,7 +7,7 @@ import Profimage from "../../assets/images/userimage.png";
 import Nav from "react-bootstrap/Nav";
 import abtGirl from "../../assets/images/abtGirl.png";
 import { useForm } from "react-hook-form";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import {
   userPersonalDetail,
   userAddressDetail,
@@ -29,6 +29,16 @@ const Profile = () => {
   let navigate = useNavigate();
   let [refresher, setRefresher] = useState(true);
   const [validationMode, setValidationMode] = useState(true);
+
+  const [clockedInTime, setClockedInTime] = useState(null);
+  const [clockedOutTime, setClockedOutTime] = useState(null);
+  const [workingDuration, setWorkingDuration] = useState(null);
+  const [clockedInDateString, setclockedInDateString] = useState(null);
+
+  const [breakDuration, setBreakDuration] = useState(null);
+  const [breakStartTime, setBreakStartTime] = useState(null);
+  const [isBreakActive, setIsBreakActive] = useState(false);
+  const [breakEndTime, setBreakEndTime] = useState(null);
 
   const [fullName, setFullName] = useState("");
   let firstNameRef = useRef();
@@ -124,34 +134,21 @@ const Profile = () => {
           setPersonalData(resp.data);
           let OBJECT = resp.data;
 
-          firstNameRef.current.value = OBJECT?.fullName;
-          phoneNumberRef.current.value = OBJECT?.phoneNumber;
+          firstNameRef.current.value = OBJECT?.userName;
+          phoneNumberRef.current.value = OBJECT?.mobileNumber;
           emailRef.current.value = OBJECT?.email;
+          setclockedInDateString(OBJECT?.loginTime)
+          const dateObject = new Date(OBJECT?.loginTime);
+          let hours = dateObject.getHours();
+          const minutes = dateObject.getMinutes();
+          const amPm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12 || 12;
+          const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
+          setClockedInTime(formattedTime);
           setPreviewImage(resp?.data?.profilePic);
-          // userTypeRef.current.value = OBJECT?.userType;
+          // userTypeRef.current.value = OBJECT?.role;
 
-          setRadiovalue(resp?.data?.userType);
-
-          dispatch(loader(false));
-        } else {
-          dispatch(loader(false));
-          toast.error(resp.message);
-        }
-      })
-    );
-
-    dispatch(
-      userAddressDetail((resp) => {
-        if (resp.status) {
-          // console.log("Address", resp.data);
-          setAddressData(resp.data);
-          let OBJECT = resp.data;
-          addressRef.current.value = OBJECT?.addressLine;
-          pincodeRef.current.value = OBJECT?.pinCode;
-          setCityData(OBJECT?.city);
-          cityRef.current.value = OBJECT?.city;
-          stateRef.current.value = OBJECT?.state;
-          countryRef.current.value = OBJECT?.country;
+          setRadiovalue(resp?.data?.role);
 
           dispatch(loader(false));
         } else {
@@ -160,44 +157,121 @@ const Profile = () => {
         }
       })
     );
-    dispatch(
-      userAcademicDetail((resp) => {
-        if (resp.status) {
-          // console.log("Academic", resp.data);
-          setAcademicData(resp.data);
-          let OBJECT = resp.data;
-          collegeRef.current.value = OBJECT?.collegeName;
-          yearRef.current.value = OBJECT?.yearOfCollege;
-          academicDegreeRef.current.value = OBJECT?.degreeOfStream;
-          academicCityRef.current.value = OBJECT?.city;
-          academicPincodeRef.current.value = OBJECT?.pinCode;
-          dispatch(loader(false));
-        } else {
-          dispatch(loader(false));
-          toast.error(resp.message);
-        }
-      })
-    );
-    dispatch(
-      userProfessionalDetail((resp) => {
-        if (resp.status) {
-          // console.log("professional", resp.data);
-          setProfessionalData(resp.data);
-          let OBJECT = resp.data;
-          profNameRef.current.value = OBJECT?.companyName;
-          profDesigRef.current.value = OBJECT?.designation;
-          profExpRef.current.value = OBJECT?.totalExperince;
-          profDegreeRef.current.value = OBJECT?.degreeOfStream;
-          profPincodeRef.current.value = OBJECT?.pinCode;
-          profCityRef.current.value = OBJECT?.city;
-          dispatch(loader(false));
-        } else {
-          dispatch(loader(false));
-          toast.error(resp.message);
-        }
-      })
-    );
+
+    // dispatch(
+    //   userAddressDetail((resp) => {
+    //     if (resp.status) {
+    //       // console.log("Address", resp.data);
+    //       setAddressData(resp.data);
+    //       let OBJECT = resp.data;
+    //       addressRef.current.value = OBJECT?.addressLine;
+    //       pincodeRef.current.value = OBJECT?.pinCode;
+    //       setCityData(OBJECT?.city);
+    //       cityRef.current.value = OBJECT?.city;
+    //       stateRef.current.value = OBJECT?.state;
+    //       countryRef.current.value = OBJECT?.country;
+
+    //       dispatch(loader(false));
+    //     } else {
+    //       dispatch(loader(false));
+    //       toast.error(resp.message);
+    //     }
+    //   })
+    // );
+    // dispatch(
+    //   userAcademicDetail((resp) => {
+    //     if (resp.status) {
+    //       // console.log("Academic", resp.data);
+    //       setAcademicData(resp.data);
+    //       let OBJECT = resp.data;
+    //       collegeRef.current.value = OBJECT?.collegeName;
+    //       yearRef.current.value = OBJECT?.yearOfCollege;
+    //       academicDegreeRef.current.value = OBJECT?.degreeOfStream;
+    //       academicCityRef.current.value = OBJECT?.city;
+    //       academicPincodeRef.current.value = OBJECT?.pinCode;
+    //       dispatch(loader(false));
+    //     } else {
+    //       dispatch(loader(false));
+    //       toast.error(resp.message);
+    //     }
+    //   })
+    // );
+    // dispatch(
+    //   userProfessionalDetail((resp) => {
+    //     if (resp.status) {
+    //       // console.log("professional", resp.data);
+    //       setProfessionalData(resp.data);
+    //       let OBJECT = resp.data;
+    //       profNameRef.current.value = OBJECT?.companyName;
+    //       profDesigRef.current.value = OBJECT?.designation;
+    //       profExpRef.current.value = OBJECT?.totalExperince;
+    //       profDegreeRef.current.value = OBJECT?.degreeOfStream;
+    //       profPincodeRef.current.value = OBJECT?.pinCode;
+    //       profCityRef.current.value = OBJECT?.city;
+    //       dispatch(loader(false));
+    //     } else {
+    //       dispatch(loader(false));
+    //       toast.error(resp.message);
+    //     }
+    //   })
+    // );
   }, [refresher]);
+
+  const toggleBreak = () => {
+    if (isBreakActive) {
+      // Pause the break
+      setBreakEndTime(new Date());
+      setIsBreakActive(false);
+    } else {
+      // Start the break
+      setBreakStartTime(new Date());
+      setIsBreakActive(true);
+    }
+  };
+
+  useEffect(() => {
+    const calculateDurations = () => {
+      const now = new Date();
+      const targetDate = new Date(clockedInDateString);
+
+      let workingDifference;
+      if (!isBreakActive) {
+        
+        workingDifference = now - targetDate;
+      }
+      if (workingDifference > 0) {
+        const workingHours = Math.floor(workingDifference / (1000 * 60 * 60));
+        const workingMinutes = Math.floor((workingDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const workingSeconds = Math.floor((workingDifference % (1000 * 60)) / 1000);
+
+        setWorkingDuration(`${workingHours.toString().padStart(2, '0')}:${workingMinutes.toString().padStart(2, '0')}:${workingSeconds.toString().padStart(2, '0')}`);
+      } else {
+        setWorkingDuration(`00:00:00`);
+      }
+
+      if (isBreakActive) {
+        setWorkingDuration(workingDuration);
+        const breakDifference = now - breakStartTime;
+        if (breakDifference > 0) {
+          const breakHours = Math.floor(breakDifference / (1000 * 60 * 60));
+          const breakMinutes = Math.floor((breakDifference % (1000 * 60 * 60)) / (1000 * 60));
+          const breakSeconds = Math.floor((breakDifference % (1000 * 60)) / 1000);
+
+          setBreakDuration(`${breakHours.toString().padStart(2, '0')}:${breakMinutes.toString().padStart(2, '0')}:${breakSeconds.toString().padStart(2, '0')}`);
+        } else {
+          setBreakDuration(`00:00:00`);
+        }
+      }
+    };
+
+    const intervalId = setInterval(calculateDurations, 1000);
+
+    // Cleanup function to clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, [clockedInDateString, isBreakActive, breakStartTime]);
+
+
+
 
   const handleEditClick = () => {
     setReadOnly(false);
@@ -521,7 +595,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="ProFILE">
+    <div className="ProFILE">{clockedInTime} - Working Duration - {workingDuration}
+      <button onClick={toggleBreak}>
+        {isBreakActive ? 'Pause Break' : 'Start Break'}
+      </button>
+        {breakDuration} 
       <div className="PageHEaders">
         <div className="container">
           <div className="row">
@@ -546,9 +624,15 @@ const Profile = () => {
             <div className="col-lg-3 col-md-4 col-sm-12">
               <div className="SIdeBar">
                 <Nav defaultActiveKey="/dashboard" className="flex-column">
+
                   <Nav.Link>
                     {" "}
                     <Link to="/dashboard">Dashboard</Link>{" "}
+                  </Nav.Link>
+
+                  <Nav.Link className="Active">
+                    {" "}
+                    <Link to="/profile">My Profile</Link>
                   </Nav.Link>
                   <Nav.Link>
                     <Link to="/subscribe">My Subscription</Link>
@@ -563,92 +647,89 @@ const Profile = () => {
                   <Nav.Link>
                     <Link to="/wishlist">Wishlist</Link>
                   </Nav.Link>
-                  <Nav.Link className="Active">
-                    {" "}
-                    <Link to="/profile">My Profile</Link>
-                  </Nav.Link>
+
                   <Nav.Link>
                     {" "}
                     <span onClick={handleLogOut}>Log Out</span>
                   </Nav.Link>
                 </Nav>
               </div>
-              
+
             </div>
             <div className="col-lg-9 col-md-8 col-sm-12">
               <div className="ProFileForM">
                 {/* <form> */}
                 <form onSubmit={handleSubmit(pesonalInfo)}>
                   <div className="profile-img-area">
-                 
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="ProFi1 ProFiles">
-                        <label htmlFor="imgupload">
-                          <input
-                            type="file"
-                            id="imgupload"
-                            onChange={handleProfilePic}
-                            style={{ display: "none" }}
-                            disabled={readOnly}
-                          />
-                          <i>
-                            <AiFillCamera />
-                          </i>
-                          <img
-                            src={previewImage ? previewImage : Profimage}
-                            className="img-fluid border"
-                            alt="User Profile"
-                            style={{ width: "150px" }}
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="ProFi1 ProFiles">
-                        <h4>Personal Information</h4>
-                      </div>
-                    </div>
-                    <div className="col-12 d-flex justify-content-center">
-                      <div className="ProFiles profileimg">
-                        <div>
-                        <input
-                          type="radio"
-                          readOnly={readOnly}
-                          id="Student"
-                          name="Student"
-                          value="student"
-                          onChange={changeSelection}
-                          checked={radioValue === "student"}
-                        />
-                        <label>Student</label>
+
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="ProFi1 ProFiles">
+                          <label htmlFor="imgupload">
+                            <input
+                              type="file"
+                              id="imgupload"
+                              onChange={handleProfilePic}
+                              style={{ display: "none" }}
+                              disabled={readOnly}
+                            />
+                            <i>
+                              <AiFillCamera />
+                            </i>
+                            <img
+                              src={previewImage ? previewImage : Profimage}
+                              className="img-fluid border"
+                              alt="User Profile"
+                              style={{ width: "150px" }}
+                            />
+                          </label>
                         </div>
-                     
-                        <div>
-                        <input
-                          type="radio"
-                          disabled={readOnly}
-                          readOnly={readOnly}
-                          id="Working Professional"
-                          name="Working Professional"
-                          value="workingProfessional"
-                          onChange={changeSelection}
-                          checked={radioValue === "workingProfessional"}
-                        />
-                        <label>Working Professional</label>
-                        </div>
-                        
                       </div>
-                      <button type="button" onClick={handleEditClick} className="editbtn">
-                        Edit
-                      </button>
                     </div>
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="ProFi1 ProFiles">
+                          <h4>Personal Information</h4>
+                        </div>
+                      </div>
+                      <div className="col-12 d-flex justify-content-center">
+                        <div className="ProFiles profileimg">
+                          <div>
+                            <input
+                              type="radio"
+                              readOnly={readOnly}
+                              id="Student"
+                              name="Student"
+                              value="student"
+                              onChange={changeSelection}
+                              checked={radioValue === "student"}
+                            />
+                            <label>Student</label>
+                          </div>
+
+                          <div>
+                            <input
+                              type="radio"
+                              disabled={readOnly}
+                              readOnly={readOnly}
+                              id="Working Professional"
+                              name="Working Professional"
+                              value="workingProfessional"
+                              onChange={changeSelection}
+                              checked={radioValue === "workingProfessional"}
+                            />
+                            <label>Working Professional</label>
+                          </div>
+
+                        </div>
+                        <button type="button" onClick={handleEditClick} className="editbtn">
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+
                   </div>
-                  
-                  </div>
-                  
+
                   <div className="row">
                     <div className="col-12">
                       <div className="ProFi">
@@ -971,7 +1052,7 @@ const Profile = () => {
                     </div>
                   </div>
                   <div className="row">
-                   
+
                     <div className="col-lg-12  col-sm-12">
                       <div className="ProFi">
                         <label>Name of the College</label>
@@ -987,7 +1068,7 @@ const Profile = () => {
                         />
                       </div>
                     </div>
-                    
+
                   </div>
                   <div className="row">
                     <div className="col-lg-6  col-sm-12">
@@ -1069,11 +1150,11 @@ const Profile = () => {
                         />
                       </div>
                     </div>
-                    
+
                   </div>
                   <div className="row">
-                 
-                   
+
+
                   </div>
                   <div className="row">
                     <div className="col-12">
@@ -1135,10 +1216,10 @@ const Profile = () => {
                             ref={profDegreeRef}
                             disabled={readOnly4}
                           />
-                        
+
                         </div>
                       </div>
-                   
+
                     </div>
                     <div className="row">
                       <div className="col-12">
@@ -1170,7 +1251,7 @@ const Profile = () => {
                         </div>
                       </div>
                     </div>
-                   
+
                     <div className="row">
                       <div className="col-6">
                         <div className="ProFi">
