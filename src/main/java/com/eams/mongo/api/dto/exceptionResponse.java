@@ -1,13 +1,13 @@
-package com.eams.mongo.api.responses;
+package com.eams.mongo.api.dto;
 
 import java.util.Optional;
 
-
-public class SuccessResponse {
-      
-	private Boolean  status;
-	private String  message;
-	private Optional<?>  data;
+public class exceptionResponse {
+             
+	private Boolean status;
+	private String message;
+	private Optional<?> data;
+//	private Optional<List<Object> ? Object :String> data;
 	/**
 	 * @return the status
 	 */
@@ -44,6 +44,4 @@ public class SuccessResponse {
 	public void setData(Optional<?> data) {
 		this.data = data;
 	}
-		
-	
 }

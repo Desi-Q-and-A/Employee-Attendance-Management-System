@@ -1,11 +1,12 @@
 package com.eams.mongo.api.entity;
 
 import java.util.Collection;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,15 +19,16 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "User")
-public class UserModel implements UserDetails {
+@Document(collection = "Admin")
+public class AdminModel implements UserDetails {
 	
 	 private static final long serialVersionUID = 1L;
-   @Id
-    private String userId;
    
-   @NotNull(message = "User name is required")
-  private String userName;
+   @Id
+   private ObjectId id;
+   
+   @NotNull(message = "name is required")
+  private String name;
    @NotNull(message = "Email is required")
   private String email;
    @NotNull(message = "Mobile number is required")
@@ -35,19 +37,9 @@ public class UserModel implements UserDetails {
   private String password;
    private Role role;
   private boolean isActive;
-  private String faceData;
-  private Date loginTime;
-  private Date logOutTime;
+ 
   
-  public String getUserId() {
-		return userId;
-	}
-public String getUserName() {
-	return userName;
-}
-public void setUserName(String userName) {
-	this.userName = userName;
-}
+ 
 public String getEmail() {
 	return email;
 }
@@ -67,42 +59,6 @@ public void setPassword(String password) {
 	this.password = password;
 }
 
-public String getFaceData() {
-	return faceData;
-}
-/**
- * @param faceData the faceData to set
- */
-public void setFaceData(String faceData) {
-	this.faceData = faceData;
-}
-/**
- * @return the loginTime
- */
-public Date getLoginTime() {
-	return loginTime;
-}
-/**
- * @param loginTime the loginTime to set
- */
-public void setLoginTime(Date loginTime) {
-	this.loginTime = loginTime;
-}
-/**
- * @return the logOutTime
- */
-public Date getLogOutTime() {
-	return logOutTime;
-}
-/**
- * @param logOutTime the logOutTime to set
- */
-public void setLogOutTime(Date logOutTime) {
-	this.logOutTime = logOutTime;
-}
-/**
- * @return the isActive
- */
 public boolean getIsActive() {
 	return isActive;
 }
@@ -133,7 +89,7 @@ public void setIsActive(boolean isActive) {
 	@Override
 	public String getUsername() {
 		
-		return userId;
+		return id.toString();
 	}
 
 	@Override

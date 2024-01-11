@@ -1,24 +1,38 @@
-package com.eams.mongo.api.services;
+package com.eams.mongo.api.services.Implimentions;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.eams.mongo.api.entity.UserModel;
 import com.eams.mongo.api.repo.UserRepository;
+import com.eams.mongo.api.services.UserServices;
 
 @Service
 
-public class UserServicesImpl implements IUserServices {
+public class UserServicesImpl implements UserServices {
 	@Autowired
-	UserRepository User;
+	UserRepository userRepository;
+	
+	 @Override
+	    public UserDetailsService userDetailsService() {
+	        return new UserDetailsService() {
+	            @Override
+	            public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	                return userRepository.findByEmail(userName).orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+	            }
+	        };
+	    }
 	
 	@Override
 	public Optional<UserModel> existing_user(String mobileNumber, String email) {
 		
-		 Optional<UserModel> exUser =User.findByMobileNumberOrEmail(mobileNumber,email);
+		 Optional<UserModel> exUser =userRepository.findByMobileNumberOrEmail(mobileNumber,email);
 
         return exUser;
 		
@@ -28,13 +42,13 @@ public class UserServicesImpl implements IUserServices {
 	@Override
 	public UserModel register_user(UserModel userdata) {
 
-		return User.save(userdata);
+		return userRepository.save(userdata);
 	}
 
 	@Override
-	public UserModel update_user_profile(UserModel data) {
+	public UserModel update_user_profile( String userId ,UserModel data) {
 	
-		Optional<UserModel> findUser =  User.findById(data.getUserId());
+		Optional<UserModel> findUser =  userRepository.findById(userId);
 		  if (findUser.isPresent()) {
 		        UserModel exUser = findUser.get();
 
@@ -64,16 +78,16 @@ public class UserServicesImpl implements IUserServices {
 		        }
 		       
                  
-		        return  User.save(exUser);
+		        return  userRepository.save(exUser);
 		    }
 
 		    return null;
 	}
 
 	@Override
-	public UserModel fetch_user_profile(UserModel userId) {
+	public UserModel fetch_user_profile(String userId) {
 		
-		Optional<UserModel> findUser =  User.findById(userId.getUserId());
+		Optional<UserModel> findUser =  userRepository.findById(userId);
 		if(findUser.isPresent()) {
 			return findUser.get();
 		}
@@ -82,22 +96,22 @@ public class UserServicesImpl implements IUserServices {
 
 	@Override
 	public List<UserModel> list_of_active_users() {
-		List<UserModel> activelist = User.findActiveUsers();
+		List<UserModel> activelist = userRepository.findActiveUsers();
 		return activelist;
 	}
 
 	@Override
 	public List<UserModel> list_of_inactive_users() {
-		List<UserModel> inActivelist = User.findInActiveUsers();
+		List<UserModel> inActivelist = userRepository.findInActiveUsers();
 		return inActivelist;
 	}
 
 	@Override
 	public UserModel delete_user_profile(String userId) {
-		Optional<UserModel > checkUser= User.findById(userId);
+		Optional<UserModel > checkUser= userRepository.findById(userId);
 		
 		if(checkUser.isPresent()) {
-			User.deleteById(userId);
+			userRepository.deleteById(userId);
 			return checkUser.get();
 		}else {
 			return null;
@@ -107,7 +121,7 @@ public class UserServicesImpl implements IUserServices {
 
 	@Override
 	public UserModel user_login(String email) {
-		Optional<UserModel > chkUser = User.findByEmail(email);
+		Optional<UserModel > chkUser = userRepository.findByEmail(email);
 		
 			return chkUser.orElse(null);
 		
@@ -117,7 +131,7 @@ public class UserServicesImpl implements IUserServices {
 	@Override
 	public List<UserModel> list_of_all_users() {
 		
-		List<UserModel> chkUser = User.findAll();
+		List<UserModel> chkUser = userRepository.findAll();
 		
 		return chkUser;
 	}

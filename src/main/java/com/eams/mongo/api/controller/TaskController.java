@@ -38,7 +38,7 @@ import com.eams.mongo.api.services.UserServices;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class TaskController {
 	@Autowired
 	private  UserServices UserService;
 	@Autowired

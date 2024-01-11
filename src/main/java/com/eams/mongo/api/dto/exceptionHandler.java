@@ -1,4 +1,4 @@
-package com.eams.mongo.api.responses;
+package com.eams.mongo.api.dto;
 
 
 import java.io.IOException;
