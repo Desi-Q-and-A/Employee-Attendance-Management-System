@@ -1,129 +1,126 @@
 package com.eams.mongo.api.controller;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import io.jsonwebtoken.JwtException;
-
-
 import com.eams.mongo.api.dto.HttpResponse;
-import com.eams.mongo.api.dto.JwtAuthenticationResponse;
 import com.eams.mongo.api.dto.SuccessHandler;
-import com.eams.mongo.api.entity.Role;
-import com.eams.mongo.api.entity.UserModel;
+import com.eams.mongo.api.entity.Priority;
+import com.eams.mongo.api.entity.TaskModel;
+import com.eams.mongo.api.entity.TaskStatus;
 import com.eams.mongo.api.services.JWTService;
-import com.eams.mongo.api.services.UserServices;
+import com.eams.mongo.api.services.TaskServices;
+
 
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/tasks")
 public class TaskController {
-	@Autowired
-	private  UserServices UserService;
+	
 	@Autowired
 	private JWTService jwtService;
-	@Autowired
-	private AuthenticationManager authenticationManager;
+
+	 
 	 @Autowired
-		private  PasswordEncoder passwordEncoder;
+		private  TaskServices taskServices;
 	
-	@PostMapping("/register")
-	public ResponseEntity<?> registerUser(@RequestBody UserModel data) {
+	@PostMapping("/create")
+	public ResponseEntity<?> createTask(@RequestHeader("Authorization") String authReq,@RequestBody TaskModel data) {
 	    try {
 	    	
-	    	if (data.getUserName() == null || data.getUserName().isBlank()) {
-	    	    return ResponseEntity.status(400).body("User name is required");
-	    	}
-	    	if (data.getMobileNumber() == null || data.getMobileNumber().isBlank()) {
-	    	    return ResponseEntity.status(400).body("Mobile Number is required");
-	    	}
-	    	if (data.getEmail() == null || data.getEmail().isBlank()) {
-	    	    return ResponseEntity.status(400).body("Email is required");
-	    	}
-	    	if (data.getPassword() == null || data.getPassword().isBlank()) {
-	    	    return ResponseEntity.status(400).body("password is required");
+	    	
+	    	String token = authReq.substring(7);
+			
+			 if(token == null) {
+				 
+				 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
+			 }
+		     String userId = jwtService.extractUsername(token);
+		     
+		     Optional<TaskModel> exTask = taskServices.find_Ex_Task(userId,data.getTaskName(), userId);
+		     System.out.print(exTask);
+		     if(exTask.isPresent()) {
+		    	 return ResponseEntity.status(302).body(data.getTaskName() + " already exists.!!!");
+		     }
+	    	
+	    	if (data.getTaskName() == null || data.getTaskName().isBlank()) {
+	    	    return ResponseEntity.status(400).body("Task name is required");
 	    	}
 	    	
-	        Optional<UserModel> exUser = UserService.existing_user(data.getMobileNumber(),data.getEmail());
-	        //System.out.println(exUser);
+	    	if (data.getAssignedTo() == null || data.getAssignedTo().isBlank()) {
+	    	    return ResponseEntity.status(400).body("Please select AssignedTo .!!!");
+	    	}
+	    	if (data.getObservers() == null || data.getObservers().isEmpty()) {
+	    	    return ResponseEntity.status(400).body("Please select Observer.!!!");
+	    	}
+	    	if (data.getPriority() == null || data.getPriority().toString().isBlank()) {
+	    		data.setPriority(Priority.MEDIUM);
+	    	}else {
+	    		data.setPriority(data.getPriority());
+	    	}
+	    	if (data.getTaskStatus() == null || data.getTaskStatus().toString().isBlank()) {
+	    		data.setTaskStatus(TaskStatus.PENDING);
+	    	}else {
+	    		data.setTaskStatus(data.getTaskStatus());
+	    	}
+	    	
+	    	data.setUserId(userId);
+	    	data.setCreatedBy(userId);
 
-	        if (exUser != null && exUser.isPresent() ) {
-	            UserModel existingUser = exUser.get();
+	    	TaskModel createdTask = taskServices.create_task(data);
 
-	            if (existingUser.getMobileNumber().equals(data.getMobileNumber())) {
-	                return ResponseEntity.status(409).body("Mobile number already exists");
-	            }
-
-	            if (existingUser.getEmail().equals(data.getEmail())) {
-	                return ResponseEntity.status(409).body("Email already exists");
-	            }
-	        }
-	        data.setPassword(passwordEncoder.encode(data.getPassword()));
-	        data.setRole(Role.USER);
-
-	        UserModel newUser = UserService.register_user(data);
-
-	        if (newUser == null) {
+	        if (createdTask == null) {
 	            return ResponseEntity.status(400).body("Something went wrong !!!");
 	        }
 
-	        return ResponseEntity.status(200).body(newUser);
+	        return ResponseEntity.status(200).body(createdTask);
 	    }  catch (Exception e) {
             // Handle validation error
             return ResponseEntity.status(400).body(e.getMessage());
         }
 	}
 
-	@PostMapping("/login")
-	public ResponseEntity<?> userLogin(@RequestBody UserModel user) {
+	@PatchMapping("/update")
+	public ResponseEntity<?> updateTask(@RequestHeader("Authorization") String authReq,@RequestBody TaskModel data) {
 		try {
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword()));
-		System.out.print(user + "  SignInRequest");
-		
-		
-	    UserModel exUser = UserService.user_login(user.getEmail());
-
-	    System.out.print(exUser.getPassword() + "   "+ user.getPassword() + "  pwd    "+ passwordEncoder.matches(user.getPassword(),exUser.getPassword()));
+			
+			String token = authReq.substring(7);
+			
+			 if(token == null) {
+				 
+				 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
+			 }
+		     String userId = jwtService.extractUsername(token);
+		     
+		     Optional<TaskModel> exTask = taskServices.fetch_task(data.getTaskId());
+		     
+		     if(exTask == null) {
+		    	 return SuccessHandler.res(false, "Task does not exist.!!!", Optional.empty());
+		    	 
+		     } else if(exTask != null && exTask.isPresent() && exTask.get().getUserId().equals(userId)) {
+		    	 var updatedTask = taskServices.update_task(exTask.get().getTaskId(), data);
+		    	 
+		    	  return ResponseEntity.ok(new HttpResponse<>(true,"Updated successfully. ", updatedTask).toMap());
+		     }
+		     return ResponseEntity.ok(new HttpResponse<>(false,"Unable to update.!!! ", Optional.empty()).toMap());
 	    
-	    if (exUser != null && passwordEncoder.matches(user.getPassword(),exUser.getPassword())) {
-	    	exUser.setLoginTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-	    	UserService.update_user_profile(exUser.getUserId(), exUser);
-	        var genJWTToken =jwtService.generateToken(exUser);
-	        var refreshToken = jwtService.generaterefreshToken( new HashMap<>(), exUser);
-  
-	        JwtAuthenticationResponse res = new JwtAuthenticationResponse();
-			 res.setToken(genJWTToken);
-			 res.setRefreshToken(refreshToken);
-	        return ResponseEntity.ok(new HttpResponse<>(true,"Logged in successfully. ",res).toMap());
-	           
-	        
-	    } else {
-	        return SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
-	    } 
 	    
-		}catch (BadCredentialsException e) {
-	        return SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
+		}catch (NullPointerException e) {
+	        return SuccessHandler.res(false, "Something went wrong.!!!", Optional.empty());
 	    
 		} catch (JwtException e) {
             return SuccessHandler.res(false, e.getMessage(), Optional.empty());
@@ -131,94 +128,159 @@ public class TaskController {
 	}
 
 	
-	@PatchMapping("/update_profile")
-	public ResponseEntity<?> updateUserProfile (@RequestHeader("Authorization") String authReq, @RequestBody UserModel data){
-		 //System.out.print(" updateUserProfile "+ ("userId"));
-		 String token = authReq.substring(7);
-		
-		 if(token == null) {
-			 
-			 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
-		 }
-	     String userId = jwtService.extractUsername(token);
-		UserModel exUser = UserService.update_user_profile(userId,data);
-		if(exUser != null) {
-			return new ResponseEntity<>(exUser,  HttpStatus.OK);
+	@PatchMapping("/task_actions")
+	public ResponseEntity<?> updateStartStop(@RequestHeader("Authorization") String authReq, @RequestBody TaskModel data) {
+	    try {
+	        String token = authReq.substring(7);
 
+	        if (token == null) {
+	            return ResponseEntity.ok(new HttpResponse<>(false, "Invalid token", null).toMap());
+	        }
 
-		}
-		 return ResponseEntity.status(400).body("Unable to update !!!");
+	        String userId = jwtService.extractUsername(token);
+
+	        Optional<TaskModel> exTask = taskServices.fetch_task(data.getTaskId());
+
+	        if (!exTask.isPresent()) {
+	            return ResponseEntity.ok(new HttpResponse<>(false, "Task does not exist", Optional.empty()).toMap());
+	        }
+
+	        TaskModel existingTask = exTask.get();
+
+	        if (!existingTask.getUserId().equals(userId)) {
+	            return ResponseEntity.ok(new HttpResponse<>(false, "Unauthorized access", Optional.empty()).toMap());
+	        }
+
+	        
+
+	        //System.out.println("existingTask before update: " + existingTask.getStartedAt());
+	        var updatedTask = taskServices.update_task_actions(existingTask.getTaskId(), data);
+	        //System.out.println("updatedTask after update: " + updatedTask.getStartedAt());
+
+	        return ResponseEntity.ok(new HttpResponse<>(true, "Updated successfully", updatedTask).toMap());
+
+	    } catch (Exception e) {
+	        return ResponseEntity.ok(new HttpResponse<>(false, e.getMessage(), Optional.empty()).toMap());
+	    }
 	}
+
+	@GetMapping("/fetch_task/{taskId}")
+	public ResponseEntity<?> fetchUserProfile(@RequestHeader("Authorization") String authReq,
+	                                         @PathVariable String taskId) {
+	    try {
+	        String token = authReq.substring(7);
+
+	        if (token == null) {
+	            return ResponseEntity.ok(new HttpResponse<>(false, "Invalid token", null).toMap());
+	        }
+
+	        String userId = jwtService.extractUsername(token);
+
+	        Optional<TaskModel> exTask = taskServices.fetch_task(taskId);
+
+	        if (exTask == null) {
+	            return ResponseEntity.ok(new HttpResponse<>(false, "Task does not exist.!!!", Optional.empty()).toMap());
+	        }
+              
+	        if (!exTask.get().getUserId().equals(userId)) {
+	            return ResponseEntity.ok(new HttpResponse<>(false, "The task does not belongs to you.!!!", Optional.empty()).toMap());
+	        }
+	        
+	        return ResponseEntity.ok(new HttpResponse<>(true, "Task detail ---->⏬⏬⏬⬇⬇", exTask).toMap());
+
+	    } catch (JwtException e) {
+	        return ResponseEntity.ok(new HttpResponse<>(false, e.getMessage(), null).toMap());
+	    }
+	}
+
 	
-	@GetMapping("/fetch_user_profile")
-	public ResponseEntity<?> fetchUserProfile(@RequestHeader("Authorization") String authReq){
+	@GetMapping("/list_of_active_tasks_for_user")
+	public ResponseEntity<?> listOfActiveUsersTask(@RequestHeader("Authorization") String authReq){
 		
-		try {
-		
-			
-		 
 		 String token = authReq.substring(7);
-		 //System.out.println("fetch_user_profile: " + token);
-		 if(token == null) {
-			 
-			 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
-		 }
-	     String userId = jwtService.extractUsername(token);
-		 //System.out.print(userId +" signUpRequest "+authReq);
-		 
-		UserModel checkUser = UserService.fetch_user_profile(userId);
+
+	        if (token == null) {
+	            return ResponseEntity.ok(new HttpResponse<>(false, "Invalid token", null).toMap());
+	        }
+
+	        String userId = jwtService.extractUsername(token);
 		
-		if(checkUser != null) {
-			return  ResponseEntity.ok(new HttpResponse<>(true,"User found successfully",checkUser).toMap());
-		}
-		 return ResponseEntity.ok(new HttpResponse<>(false,"Unable to fetch user profile!!!",null).toMap());
-		 
-		} catch (JwtException e) {
-			 return ResponseEntity.ok(new HttpResponse<>(false,e.getMessage(),null).toMap());
-        }
-	}
+	List<TaskModel>	 checkTask = taskServices.list_of_active_tasks( userId, TaskStatus.IN_PROGRESS);
 	
-	@GetMapping("/list_of_active_users")
-	public ResponseEntity<List<UserModel>> listOfActiveUsers(){
-	List<UserModel>	 checkUsers = UserService.list_of_active_users();
-		if(checkUsers != null) {
-			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
+		if(checkTask != null) {
+			return new ResponseEntity<>(checkTask,  HttpStatus.OK);
 		}
 		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@GetMapping("/list_of_inactive_users")
-	public ResponseEntity<List<UserModel>> listOfInactiveUsers(){
-	List<UserModel>	 checkUsers = UserService.list_of_inactive_users();
-		if(checkUsers != null) {
-			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
-		}
-		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	@GetMapping("/list_of_inactive_tasks_for_user")
+	public ResponseEntity<?> listOfInactiveTasksUsers(@RequestHeader("Authorization") String authReq){
+	    
+	    String token = authReq.substring(7);
+
+         if (token == null) {
+            return ResponseEntity.ok(new HttpResponse<>(false, "Invalid token", null).toMap());
+                          }
+
+        String userId = jwtService.extractUsername(token);
+ 
+         List<TaskModel>	 checkTask = taskServices.list_of_inactive_tasks( userId, TaskStatus.IN_PROGRESS);
+
+           if(checkTask != null) {
+	          return new ResponseEntity<>(checkTask,  HttpStatus.OK);
+                  }
+               return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@GetMapping("/list_of_all_users")
-	public ResponseEntity<List<UserModel>> list_of_all_users(){
-	List<UserModel>	 checkUsers = UserService.list_of_all_users();
-		if(checkUsers != null) {
-			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
-		}
-		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	@GetMapping("/list_of_tasks_for_user")
+	public ResponseEntity<?> list_of_all_tasks_For_users(@RequestHeader("Authorization") String authReq ,@RequestParam(name = "taskStatus",required = false) TaskStatus taskStatus){
+		
+		String token = authReq.substring(7);
+
+        if (token == null) {
+           return ResponseEntity.ok(new HttpResponse<>(false, "Invalid token", null).toMap());
+                         }
+
+       String userId = jwtService.extractUsername(token);
+
+        if (taskStatus != null) {
+           
+        	List<TaskModel>	 checkTask = taskServices.list_of_all_tasks( userId, taskStatus);
+            
+        	return new ResponseEntity<>(checkTask,  HttpStatus.OK);
+        } 	
+        
+        
+        List<TaskModel>	 checkTask = taskServices.list_of_all_tasks( userId, null);
+        
+    	return new ResponseEntity<>(checkTask,  HttpStatus.OK);
+
+          
+             
 	}
 	
 	
-	 @DeleteMapping("/delete_user_profile")
-     public ResponseEntity<?> deleteUserProfile(@RequestBody Map<String, String> data){
+	 @DeleteMapping("/delete_user_task")
+     public ResponseEntity<?> deleteUserTask(@RequestHeader("Authorization") String authReq ,@RequestBody TaskModel data){
    	  
    	  try {
-   		  System.out.println("userId   " + data.get("userId"));
-   		UserModel findUser =  UserService.delete_user_profile(data.get("userId"));
-			if(findUser != null) {
-				 return new ResponseEntity<>(findUser, HttpStatus.OK);
+   		 // System.out.println("userId   " + data.getTaskId());
+   		  
+   		String token = authReq.substring(7);
+
+        if (token == null) {
+           return ResponseEntity.ok(new HttpResponse<>(false, "Invalid token", null).toMap());
+                         }
+
+       String userId = jwtService.extractUsername(token);
+   		Boolean isDeleted =  taskServices.delete_task(userId ,data.getTaskId() );
+			if(isDeleted) {
+				 return new ResponseEntity<>("Task deleted Successfully.", HttpStatus.OK);
 			}else {
-				 return new ResponseEntity<>("User does not exist", HttpStatus.NOT_FOUND);
+				 return new ResponseEntity<>("Task does not exist", HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			 return new ResponseEntity<>("Invalid userId ", HttpStatus.BAD_REQUEST);
+			 return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
    	  
      }

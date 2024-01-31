@@ -40,6 +40,7 @@ public class SecurityConfiguration {
 				.permitAll()
 				.requestMatchers("/admin").hasAnyAuthority(Role.ADMIN.name())
 				.requestMatchers("/user").hasAnyAuthority(Role.USER.name())
+				.requestMatchers("/tasks").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
 				.anyRequest().authenticated())
 		.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

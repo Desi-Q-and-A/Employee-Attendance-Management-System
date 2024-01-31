@@ -3,11 +3,12 @@ package com.eams.mongo.api.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.time.Duration;
-import org.bson.types.ObjectId;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "Tasks")
 public class TaskModel {
@@ -15,15 +16,17 @@ public class TaskModel {
 	 @Id
 	    private String id;
 
-	    private ObjectId userId;
+	    private String userId;
 	    private String taskName;
 	    private Priority priority;
+	    private TaskActions taskActions;
 	    private String createdBy;
 	    private String assignedTo;
 	    private List<String> observers;
 	    private boolean isCompleted;
 	    private TaskStatus taskStatus;
 	    private Duration  timeTaken;
+	    @Field("startedAt")
 	    private LocalDateTime startedAt;
 	    private LocalDateTime completedAt;
 
@@ -33,11 +36,19 @@ public class TaskModel {
 	    @LastModifiedDate
 	    private LocalDateTime updatedAt;
 
-		public ObjectId getUserId() {
+		public String getTaskId() {
+			return id;
+		}
+		public void setTaskId(String taskId) {
+			this.id = taskId;
+		}
+
+
+		public String getUserId() {
 			return userId;
 		}
 
-		public void setUserId(ObjectId userId) {
+		public void setUserId(String userId) {
 			this.userId = userId;
 		}
 
@@ -81,11 +92,11 @@ public class TaskModel {
 			this.observers = observers;
 		}
 
-		public boolean isCompleted() {
+		public boolean getIsCompleted() {
 			return isCompleted;
 		}
 
-		public void setCompleted(boolean isCompleted) {
+		public void setIsCompleted(boolean isCompleted) {
 			this.isCompleted = isCompleted;
 		}
 
@@ -119,6 +130,12 @@ public class TaskModel {
 
 		public void setCompletedAt(LocalDateTime completedAt) {
 			this.completedAt = completedAt;
+		}
+		public TaskActions getTaskActions() {
+			return taskActions;
+		}
+		public void setTaskActions(TaskActions taskActions) {
+			this.taskActions = taskActions;
 		}
 
 		

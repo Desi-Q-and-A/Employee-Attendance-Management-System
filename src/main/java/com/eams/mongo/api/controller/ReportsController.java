@@ -37,7 +37,7 @@ import com.eams.mongo.api.services.UserServices;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/reports")
 public class ReportsController {
 	@Autowired
 	private  UserServices UserService;
