@@ -1,5 +1,6 @@
 package com.eams.mongo.api.controller;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashMap;
@@ -30,17 +31,21 @@ import com.eams.mongo.api.dto.HttpResponse;
 import com.eams.mongo.api.dto.JwtAuthenticationResponse;
 import com.eams.mongo.api.dto.SuccessHandler;
 import com.eams.mongo.api.entity.Role;
+import com.eams.mongo.api.entity.UserLoginHistoryModel;
 import com.eams.mongo.api.entity.UserModel;
 import com.eams.mongo.api.services.JWTService;
+import com.eams.mongo.api.services.UserLoginHistoryServices;
 import com.eams.mongo.api.services.UserServices;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class EmployeeController {
 	@Autowired
 	private  UserServices UserService;
+	@Autowired
+	private  UserLoginHistoryServices userLoginHistoryServices;
 	@Autowired
 	private JWTService jwtService;
 	@Autowired
@@ -107,8 +112,24 @@ public class UserController {
 	    System.out.print(exUser.getPassword() + "   "+ user.getPassword() + "  pwd    "+ passwordEncoder.matches(user.getPassword(),exUser.getPassword()));
 	    
 	    if (exUser != null && passwordEncoder.matches(user.getPassword(),exUser.getPassword())) {
-	    	exUser.setLoginTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-	    	UserService.update_user_profile(exUser.getUserId(), exUser);
+	    	
+	    	LocalDate today = LocalDate.now();
+	    	 LocalDateTime startOfDay = today.atStartOfDay();
+	    	    LocalDateTime endOfDay = today.atTime(23, 59, 59);
+              Optional<UserLoginHistoryModel> exLogin = userLoginHistoryServices.alreadyLoggedIn(exUser.getUserId(), startOfDay,endOfDay);
+	    	      System.out.print(today + "hiiii " + exLogin);
+	    	if(exLogin.isEmpty()) {
+	    		UserLoginHistoryModel newObj = new UserLoginHistoryModel();
+	    		newObj.setUserId(exUser.getUserId());
+	    		newObj.setLoggedInAt(LocalDateTime.now());
+	    		userLoginHistoryServices.newLoggedIn(newObj);
+	    		
+	    		exUser.setLoginTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+		    	UserService.update_user_profile(exUser.getUserId(), exUser);
+	    	}
+	    	
+	    	
+	    	
 	        var genJWTToken =jwtService.generateToken(exUser);
 	        var refreshToken = jwtService.generaterefreshToken( new HashMap<>(), exUser);
   
