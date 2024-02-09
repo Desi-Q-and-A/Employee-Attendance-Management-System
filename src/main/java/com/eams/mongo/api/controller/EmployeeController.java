@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,14 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import io.jsonwebtoken.JwtException;
-
-
 import com.eams.mongo.api.dto.HttpResponse;
 import com.eams.mongo.api.dto.JwtAuthenticationResponse;
 import com.eams.mongo.api.dto.SuccessHandler;
-import com.eams.mongo.api.entity.Role;
 import com.eams.mongo.api.entity.UserLoginHistoryModel;
 import com.eams.mongo.api.entity.UserModel;
 import com.eams.mongo.api.services.JWTService;
@@ -53,53 +46,6 @@ public class EmployeeController {
 	 @Autowired
 		private  PasswordEncoder passwordEncoder;
 	
-	@PostMapping("/register")
-	public ResponseEntity<?> registerUser(@RequestBody UserModel data) {
-	    try {
-	    	
-	    	if (data.getUserName() == null || data.getUserName().isBlank()) {
-	    	    return ResponseEntity.status(400).body("User name is required");
-	    	}
-	    	if (data.getMobileNumber() == null || data.getMobileNumber().isBlank()) {
-	    	    return ResponseEntity.status(400).body("Mobile Number is required");
-	    	}
-	    	if (data.getEmail() == null || data.getEmail().isBlank()) {
-	    	    return ResponseEntity.status(400).body("Email is required");
-	    	}
-	    	if (data.getPassword() == null || data.getPassword().isBlank()) {
-	    	    return ResponseEntity.status(400).body("password is required");
-	    	}
-	    	
-	        Optional<UserModel> exUser = UserService.existing_user(data.getMobileNumber(),data.getEmail());
-	        //System.out.println(exUser);
-
-	        if (exUser != null && exUser.isPresent() ) {
-	            UserModel existingUser = exUser.get();
-
-	            if (existingUser.getMobileNumber().equals(data.getMobileNumber())) {
-	                return ResponseEntity.status(409).body("Mobile number already exists");
-	            }
-
-	            if (existingUser.getEmail().equals(data.getEmail())) {
-	                return ResponseEntity.status(409).body("Email already exists");
-	            }
-	        }
-	        data.setPassword(passwordEncoder.encode(data.getPassword()));
-	        data.setRole(Role.USER);
-
-	        UserModel newUser = UserService.register_user(data);
-
-	        if (newUser == null) {
-	            return ResponseEntity.status(400).body("Something went wrong !!!");
-	        }
-
-	        return ResponseEntity.status(200).body(newUser);
-	    }  catch (Exception e) {
-            // Handle validation error
-            return ResponseEntity.status(400).body(e.getMessage());
-        }
-	}
-
 	@PostMapping("/login")
 	public ResponseEntity<?> userLogin(@RequestBody UserModel user) {
 		try {
@@ -199,49 +145,5 @@ public class EmployeeController {
         }
 	}
 	
-	@GetMapping("/list_of_active_users")
-	public ResponseEntity<List<UserModel>> listOfActiveUsers(){
-	List<UserModel>	 checkUsers = UserService.list_of_active_users();
-		if(checkUsers != null) {
-			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
-		}
-		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	}
-	
-	@GetMapping("/list_of_inactive_users")
-	public ResponseEntity<List<UserModel>> listOfInactiveUsers(){
-	List<UserModel>	 checkUsers = UserService.list_of_inactive_users();
-		if(checkUsers != null) {
-			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
-		}
-		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	}
-	
-	@GetMapping("/list_of_all_users")
-	public ResponseEntity<List<UserModel>> list_of_all_users(){
-	List<UserModel>	 checkUsers = UserService.list_of_all_users();
-		if(checkUsers != null) {
-			return new ResponseEntity<>(checkUsers,  HttpStatus.OK);
-		}
-		 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	}
-	
-	
-	 @DeleteMapping("/delete_user_profile")
-     public ResponseEntity<?> deleteUserProfile(@RequestBody Map<String, String> data){
-   	  
-   	  try {
-   		  System.out.println("userId   " + data.get("userId"));
-   		UserModel findUser =  UserService.delete_user_profile(data.get("userId"));
-			if(findUser != null) {
-				 return new ResponseEntity<>(findUser, HttpStatus.OK);
-			}else {
-				 return new ResponseEntity<>("User does not exist", HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			 return new ResponseEntity<>("Invalid userId ", HttpStatus.BAD_REQUEST);
-		}
-   	  
-     }
 	
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +24,7 @@ public class AdminModel implements UserDetails {
 	 private static final long serialVersionUID = 1L;
    
    @Id
-   private ObjectId id;
+   private String id;
    
    @NotNull(message = "name is required")
   private String name;
@@ -38,8 +37,18 @@ public class AdminModel implements UserDetails {
    private Role role;
   private boolean isActive;
  
-  
- 
+  public String getAdminId() {
+		return id;
+	}
+	public void setAdminId(String id) {
+		this.id = id;
+	}
+  public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 public String getEmail() {
 	return email;
 }
@@ -69,15 +78,13 @@ public void setIsActive(boolean isActive) {
 	this.isActive = isActive;
 }
 
+	
 	public Role getRole() {
 		return role;
 	}
 
-	/**
-	 * @param role the role to set
-	 */
-	public Role setRole(Role role) {
-		return this.role = role;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@Override
@@ -89,7 +96,7 @@ public void setIsActive(boolean isActive) {
 	@Override
 	public String getUsername() {
 		
-		return id.toString();
+		return id;
 	}
 
 	@Override

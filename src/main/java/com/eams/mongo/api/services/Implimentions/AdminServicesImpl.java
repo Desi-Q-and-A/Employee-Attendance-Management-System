@@ -9,7 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.eams.mongo.api.entity.AdminModel;
+import com.eams.mongo.api.entity.Role;
 import com.eams.mongo.api.entity.UserModel;
+import com.eams.mongo.api.repo.AdminRepository;
 import com.eams.mongo.api.repo.UserRepository;
 import com.eams.mongo.api.services.AdminServices;
 
@@ -18,17 +21,83 @@ import com.eams.mongo.api.services.AdminServices;
 
 public class AdminServicesImpl implements AdminServices {
 	@Autowired
+	AdminRepository adminRepository;
+	@Autowired
 	UserRepository userRepository;
 	
 	 @Override
-	    public UserDetailsService userDetailsService() {
+	    public UserDetailsService adminDetailsService() {
 	        return new UserDetailsService() {
 	            @Override
 	            public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-	                return userRepository.findByEmail(userName).orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+	                return adminRepository.findByEmail(userName).orElseThrow(() -> new UsernameNotFoundException("User not found!"));
 	            }
 	        };
 	    }
+	 
+	 
+
+		@Override
+		public Optional<AdminModel> existing_admin_user(String mobileNumber, String email) {
+			
+			Optional<AdminModel> exAdmin =adminRepository.findByMobileNumberOrEmail(mobileNumber,email);
+
+	        return exAdmin;
+		}
+
+		@Override
+		public AdminModel register_admin_user(AdminModel data) {
+			data.setRole(Role.ADMIN);
+			return adminRepository.save(data);
+		}
+
+		@Override
+		public AdminModel update_admin_profile(String userId, AdminModel data) {
+			Optional<AdminModel> findAdminUser =  adminRepository.findById(userId);
+			  if (findAdminUser.isPresent()) {
+				  AdminModel exAdmin = findAdminUser.get();
+
+			        if (data.getName() != null) {
+			        	exAdmin.setName(data.getName());
+			        }
+			        if (data.getEmail() != null) {
+			        	exAdmin.setEmail(data.getEmail());
+			        }
+			        if (data.getMobileNumber() != null) {
+			        	exAdmin.setMobileNumber(data.getMobileNumber());
+			        }
+			        if (data.getPassword() != null) {
+			        	exAdmin.setPassword(data.getPassword());
+			        }
+		
+			        if (data.getIsActive() == true) {
+			        	exAdmin.setIsActive(data.getIsActive());
+			        }
+			        exAdmin.setRole(Role.ADMIN);
+	                 
+			        return  adminRepository.save(exAdmin);
+			    }
+
+			    return null;
+		}
+
+		@Override
+		public AdminModel fetch_admin_profile(String userId) {
+			Optional<AdminModel> findAdmin =  adminRepository.findById(userId);
+			if(findAdmin.isPresent()) {
+				return findAdmin.get();
+			}
+			return null;
+		}
+
+		@Override
+		public AdminModel admin_login(String email) {
+			Optional<AdminModel > chkAdmin = adminRepository.findByEmail(email);
+			
+			return chkAdmin.orElse(null);
+		}
+		
+		//=========================================== User ================================================
 	
 	@Override
 	public Optional<UserModel> existing_user(String mobileNumber, String email) {
@@ -120,13 +189,7 @@ public class AdminServicesImpl implements AdminServices {
 		
 	}
 
-	@Override
-	public UserModel user_login(String email) {
-		Optional<UserModel > chkUser = userRepository.findByEmail(email);
-		
-			return chkUser.orElse(null);
-		
-	}
+	
 
 
 	@Override
@@ -136,5 +199,6 @@ public class AdminServicesImpl implements AdminServices {
 		
 		return chkUser;
 	}
+
 
 }

@@ -23,5 +23,7 @@ public interface AdminRepository extends MongoRepository<AdminModel, ObjectId> {
 	List<AdminModel> findInActiveUsers();
 	
 	Optional<AdminModel> findByEmail(String email);
+
+	Optional<AdminModel> findById(String userId);
 	
 }

@@ -1,7 +1,4 @@
 package com.eams.mongo.api.controller;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +26,10 @@ import io.jsonwebtoken.JwtException;
 import com.eams.mongo.api.dto.HttpResponse;
 import com.eams.mongo.api.dto.JwtAuthenticationResponse;
 import com.eams.mongo.api.dto.SuccessHandler;
+import com.eams.mongo.api.entity.AdminModel;
 import com.eams.mongo.api.entity.Role;
 import com.eams.mongo.api.entity.UserModel;
+import com.eams.mongo.api.services.AdminServices;
 import com.eams.mongo.api.services.JWTService;
 import com.eams.mongo.api.services.UserServices;
 
@@ -40,6 +39,8 @@ import com.eams.mongo.api.services.UserServices;
 @RequestMapping("/admin")
 public class AdminController {
 	@Autowired
+	private  AdminServices AdminService;
+	@Autowired
 	private  UserServices UserService;
 	@Autowired
 	private JWTService jwtService;
@@ -47,8 +48,147 @@ public class AdminController {
 	private AuthenticationManager authenticationManager;
 	 @Autowired
 		private  PasswordEncoder passwordEncoder;
+	 
+	 
+	 @PostMapping("/admin_registartion")
+		public ResponseEntity<?> admin_registartion(@RequestBody AdminModel data) {
+		    try {
+		    	
+		    	if (data.getName() == null || data.getName().isBlank()) {
+		    	    
+		    	    return ResponseEntity.ok(new HttpResponse<>(false, "User name is required",null).toMap());
+		    	}
+		    	if (data.getMobileNumber() == null || data.getMobileNumber().isBlank()) {
+		    	  
+		    	    return ResponseEntity.ok(new HttpResponse<>(false, "Mobile Number is required","").toMap());
+		    	}
+		    	if (data.getEmail() == null || data.getEmail().isBlank()) {
+		    	    
+		    	    return ResponseEntity.ok(new HttpResponse<>(false, "Email is required",null).toMap());
+		    	}
+		    	if (data.getPassword() == null || data.getPassword().isBlank()) {
+		    	    
+		    	    return ResponseEntity.ok(new HttpResponse<>(false, "password is required",null).toMap());
+		    	}
+		    	
+		        Optional<AdminModel> exAdminUser = AdminService.existing_admin_user(data.getMobileNumber(),data.getEmail());
+		        //System.out.println(exUser);
+
+		        if (exAdminUser != null && exAdminUser.isPresent() ) {
+		        	AdminModel existingUser = exAdminUser.get();
+
+		            if (existingUser.getMobileNumber().equals(data.getMobileNumber())) {
+		             
+		                return ResponseEntity.ok(new HttpResponse<>(false, "Mobile number already exists.!",null).toMap());
+		            }
+
+		            if (existingUser.getEmail().equals(data.getEmail())) {
+		              
+		                return ResponseEntity.ok(new HttpResponse<>(false, "Email already exists.!",null).toMap());
+		            }
+		        }
+		        data.setPassword(passwordEncoder.encode(data.getPassword()));
+		        
+
+		        AdminModel newUser = AdminService.register_admin_user(data);
+
+		        if (newUser == null) {
+		           
+		            return ResponseEntity.ok(new HttpResponse<>(false, "Something went wrong.!",null).toMap());
+		        }
+
+		        return ResponseEntity.status(200).body(newUser);
+		    }  catch (Exception e) {
+	            
+	            return ResponseEntity.ok(new HttpResponse<>(false, e.getMessage(),null).toMap());
+	        }
+		}
 	
-	@PostMapping("/register")
+	 @PostMapping("/login")
+	 public ResponseEntity<?> adminLogin(@RequestBody AdminModel user) {
+			try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword()));
+			System.out.print(user + "  SignInRequest");
+			
+			
+			AdminModel exUser = AdminService.admin_login(user.getEmail());
+
+		    System.out.print(exUser.getPassword() + "   "+ user.getPassword() + "  pwd    "+ passwordEncoder.matches(user.getPassword(),exUser.getPassword()));
+		    
+		    if (exUser != null && passwordEncoder.matches(user.getPassword(),exUser.getPassword())) {
+		    	
+		        var genJWTToken =jwtService.generateToken(exUser);
+		        var refreshToken = jwtService.generaterefreshToken( new HashMap<>(), exUser);
+	  
+		        JwtAuthenticationResponse res = new JwtAuthenticationResponse();
+				 res.setToken(genJWTToken);
+				 res.setRefreshToken(refreshToken);
+		        return ResponseEntity.ok(new HttpResponse<>(true,"Logged in successfully. ",res).toMap());
+		           
+		        
+		    } else {
+		        return SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
+		    } 
+		    
+			}catch (BadCredentialsException e) {
+		        return SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
+		    
+			} catch (JwtException e) {
+	            return SuccessHandler.res(false, e.getMessage(), Optional.empty());
+	        }
+		}
+
+		
+		@PatchMapping("/update_admin_profile")
+		public ResponseEntity<?> updateAdminProfile (@RequestHeader("Authorization") String authReq, @RequestBody AdminModel data){
+			 //System.out.print(" updateUserProfile "+ ("userId"));
+			 String token = authReq.substring(7);
+			
+			 if(token == null) {
+				 
+				 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
+			 }
+		     String userId = jwtService.extractUsername(token);
+		     AdminModel exUser = AdminService.update_admin_profile(userId,data);
+			if(exUser != null) {
+				return new ResponseEntity<>(exUser,  HttpStatus.OK);
+
+
+			}
+			 return ResponseEntity.status(400).body("Unable to update !!!");
+		}
+		
+		@GetMapping("/fetch_admin_profile")
+		public ResponseEntity<?> fetchAdminProfile(@RequestHeader("Authorization") String authReq){
+			
+			try {
+			
+				
+			 
+			 String token = authReq.substring(7);
+			 //System.out.println("fetch_user_profile: " + token);
+			 if(token == null) {
+				 
+				 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
+			 }
+		     String userId = jwtService.extractUsername(token);
+			 //System.out.print(userId +" signUpRequest "+authReq);
+			 
+		     AdminModel checkUser = AdminService.fetch_admin_profile(userId);
+			
+			if(checkUser != null) {
+				return  ResponseEntity.ok(new HttpResponse<>(true,"Admin found successfully",checkUser).toMap());
+			}
+			 return ResponseEntity.ok(new HttpResponse<>(false,"Unable to fetch admin profile!!!",null).toMap());
+			 
+			} catch (JwtException e) {
+				 return ResponseEntity.ok(new HttpResponse<>(false,e.getMessage(),null).toMap());
+	        }
+		}
+
+		// ===============================================  AdminUser access for user ======================================
+		
+	@PostMapping("/add_new_employee")
 	public ResponseEntity<?> registerUser(@RequestBody UserModel data) {
 	    try {
 	    	
@@ -95,41 +235,7 @@ public class AdminController {
         }
 	}
 
-	@PostMapping("/login")
-	public ResponseEntity<?> userLogin(@RequestBody UserModel user) {
-		try {
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword()));
-		System.out.print(user + "  SignInRequest");
-		
-		
-	    UserModel exUser = UserService.user_login(user.getEmail());
-
-	    System.out.print(exUser.getPassword() + "   "+ user.getPassword() + "  pwd    "+ passwordEncoder.matches(user.getPassword(),exUser.getPassword()));
-	    
-	    if (exUser != null && passwordEncoder.matches(user.getPassword(),exUser.getPassword())) {
-	    	exUser.setLoginTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-	    	UserService.update_user_profile(exUser.getUserId(), exUser);
-	        var genJWTToken =jwtService.generateToken(exUser);
-	        var refreshToken = jwtService.generaterefreshToken( new HashMap<>(), exUser);
-  
-	        JwtAuthenticationResponse res = new JwtAuthenticationResponse();
-			 res.setToken(genJWTToken);
-			 res.setRefreshToken(refreshToken);
-	        return ResponseEntity.ok(new HttpResponse<>(true,"Logged in successfully. ",res).toMap());
-	           
-	        
-	    } else {
-	        return SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
-	    } 
-	    
-		}catch (BadCredentialsException e) {
-	        return SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
-	    
-		} catch (JwtException e) {
-            return SuccessHandler.res(false, e.getMessage(), Optional.empty());
-        }
-	}
-
+	
 	
 	@PatchMapping("/update_profile")
 	public ResponseEntity<?> updateUserProfile (@RequestHeader("Authorization") String authReq, @RequestBody UserModel data){
@@ -177,7 +283,7 @@ public class AdminController {
 			 return ResponseEntity.ok(new HttpResponse<>(false,e.getMessage(),null).toMap());
         }
 	}
-	
+
 	@GetMapping("/list_of_active_users")
 	public ResponseEntity<List<UserModel>> listOfActiveUsers(){
 	List<UserModel>	 checkUsers = UserService.list_of_active_users();
@@ -222,5 +328,4 @@ public class AdminController {
 		}
    	  
      }
-	
 }
