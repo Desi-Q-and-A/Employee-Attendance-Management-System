@@ -17,8 +17,15 @@ public class HttpResponse<T> {
 	    public Map<String, Object> toMap() {
 	        Map<String, Object> map = new HashMap<>();
 	        map.put("status", status);
-	        map.put("message", message);
-	        map.put("data", data);
+	        
+	        if (message != null && !message.trim().isEmpty()) {
+	           
+	            map.put("message", message);
+	        }
+	        
+	        if (data != null) {
+	            map.put("data", data);
+	        }
 	        return map;
 	    }
 }
