@@ -32,6 +32,7 @@ import com.eams.mongo.api.entity.UserModel;
 import com.eams.mongo.api.services.AdminServices;
 import com.eams.mongo.api.services.JWTService;
 import com.eams.mongo.api.services.UserServices;
+import io.jsonwebtoken.ExpiredJwtException;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -133,22 +134,26 @@ public class AdminController {
 			}catch (BadCredentialsException e) {
 		        return SuccessHandler.res(false, "Invalid login credentials", Optional.empty());
 		    
-			} catch (JwtException e) {
+			} catch (JwtException  e) {
 	            return SuccessHandler.res(false, e.getMessage(), Optional.empty());
 	        }
 		}
 
 		
 		@PatchMapping("/update_admin_profile")
-		public ResponseEntity<?> updateAdminProfile (@RequestHeader("Authorization") String authReq, @RequestBody AdminModel data){
-			 //System.out.print(" updateUserProfile "+ ("userId"));
+		public ResponseEntity<?> updateAdminProfile (@RequestHeader("Authorization") String authReq, @RequestBody AdminModel data) throws ExpiredJwtException{
+			
+			try {
+				
 			 String token = authReq.substring(7);
+			 System.out.print(" updateUserProfile "+token );
 			
 			 if(token == null) {
 				 
 				 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
 			 }
 		     String userId = jwtService.extractUsername(token);
+		     System.out.print(" updateUserProfile "+ (userId));
 		     AdminModel exUser = AdminService.update_admin_profile(userId,data);
 			if(exUser != null) {
 				return new ResponseEntity<>(exUser,  HttpStatus.OK);
@@ -156,6 +161,9 @@ public class AdminController {
 
 			}
 			 return ResponseEntity.status(400).body("Unable to update !!!");
+			}catch ( JwtException e) {
+				 return ResponseEntity.ok(new HttpResponse<>(false,e.getMessage(),null).toMap());
+			}
 		}
 		
 		@GetMapping("/fetch_admin_profile")
