@@ -1,9 +1,11 @@
 package com.eams.mongo.api.controller;
 import java.sql.Date;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.HashMap;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import io.jsonwebtoken.JwtException;
 import com.eams.mongo.api.dto.HttpResponse;
@@ -115,6 +118,119 @@ public class EmployeeController {
 
 		}
 		 return ResponseEntity.status(400).body("Unable to update !!!");
+	}
+
+	@GetMapping("/fetch_user_login_history")
+	public ResponseEntity<?> fetchUserLoginHistory(@RequestHeader("Authorization") String authReq){
+		
+		try {
+				
+		 
+		 String token = authReq.substring(7);
+		 //System.out.println("fetch_user_profile: " + token);
+		 if(token == null) {
+			 
+			 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
+		 }
+	     String userId = jwtService.extractUsername(token);
+		 //System.out.print(userId +" signUpRequest "+authReq);
+		 
+	     LocalDate today = LocalDate.now();
+    	 LocalDateTime startOfDay = today.atStartOfDay();
+    	    LocalDateTime endOfDay = today.atTime(23, 59, 59);
+          Optional<UserLoginHistoryModel> exLogin = userLoginHistoryServices.alreadyLoggedIn(userId, startOfDay,endOfDay);
+    	      System.out.print(today + "hiiii " + exLogin);
+    	
+		if(exLogin != null) {
+			  UserModel userDetails = UserService.fetch_user_profile(userId);
+
+	            if(userDetails != null) {
+	            	exLogin.get().setUserId(userDetails.getUserName());
+	              
+	                return  ResponseEntity.ok(new HttpResponse<>(true,null,exLogin).toMap());
+	            }
+	            
+	            return ResponseEntity.ok(new HttpResponse<>(false,"Unable to fetch user profile!!!",null).toMap());
+		}
+		 return ResponseEntity.ok(new HttpResponse<>(false,"Unable to fetch user profile!!!",null).toMap());
+		 
+		} catch (JwtException e) {
+			 return ResponseEntity.ok(new HttpResponse<>(false,e.getMessage(),null).toMap());
+        }
+	}
+	
+	
+	@PatchMapping("/update_user_login_history")
+	public ResponseEntity<?> updateUserLoginHistory(@RequestHeader("Authorization") String authReq, @RequestParam(name = "action") String action){
+		
+		try {
+				
+		 
+		 String token = authReq.substring(7);
+		 //System.out.println("fetch_user_profile: " + token);
+		 if(token == null) {
+			 
+			 return ResponseEntity.ok(new HttpResponse<>(false,"invalid token",null).toMap());
+		 }
+	     String userId = jwtService.extractUsername(token);
+		 //System.out.print(userId +" signUpRequest "+authReq);
+		 
+	     LocalDate today = LocalDate.now();
+    	 LocalDateTime startOfDay = today.atStartOfDay();
+    	    LocalDateTime endOfDay = today.atTime(23, 59, 59);
+          Optional<UserLoginHistoryModel> exLogin = userLoginHistoryServices.alreadyLoggedIn(userId, startOfDay,endOfDay);
+    	      System.out.print(today + "hiiii " + exLogin);
+    	
+		if(exLogin != null) {
+			  UserModel userDetails = UserService.fetch_user_profile(userId);
+
+	            if(userDetails != null) {
+	            	exLogin.get().setUserId(userDetails.getUserName());
+	            	
+	            	
+	            	 if ("break".equalsIgnoreCase(action) &&  !exLogin.get().isOnBreak()) {
+	            			 exLogin.get().setBreakStartTime(LocalDateTime.now());
+	            		 LocalDateTime loggedInAt = exLogin.get().getLoggedInAt();
+	            		 LocalDateTime currentTime = LocalDateTime.now();
+	            		 Duration workedTimeDuration = Duration.between(loggedInAt, currentTime);
+
+	            		 exLogin.get().setWorkedTime(workedTimeDuration);
+	            		 
+	            		 exLogin.get().setOnBreak(true);
+	            		 exLogin.get().setPaused(true);
+	            		 
+	                 } else if ("continue".equalsIgnoreCase(action) &&  exLogin.get().isOnBreak() ) {
+	                	 
+	                		 exLogin.get().setBreakPauseTime(LocalDateTime.now());
+                   	  
+	                         Duration breakDuration = Duration.between(exLogin.get().getBreakStartTime(), exLogin.get().getBreakPauseTime());
+	                         if (exLogin.get().getBreakTime() != null) {
+	                        	    exLogin.get().setBreakTime(exLogin.get().getBreakTime().plus(breakDuration));
+	                        	} else {
+	                        	    exLogin.get().setBreakTime(breakDuration);
+	                        	}
+
+	                         exLogin.get().setOnBreak(false);
+	                         exLogin.get().setPaused(false);
+
+	                	    
+	                 } else {
+	                	 System.out.println("Invalid action: " + exLogin.get().isOnBreak());
+	                     return ResponseEntity.ok(new HttpResponse<>(false, "Invalid action", null).toMap());
+	                 }
+	            	 
+	            	 UserLoginHistoryModel updatedData =  userLoginHistoryServices.update_loging_history(exLogin.get().getId(),exLogin.get() );
+	              
+	                return  ResponseEntity.ok(new HttpResponse<>(true,null,updatedData).toMap());
+	            }
+	            
+	            return ResponseEntity.ok(new HttpResponse<>(false,"Unable to fetch user profile!!!",null).toMap());
+		}
+		 return ResponseEntity.ok(new HttpResponse<>(false,"Unable to fetch user profile!!!",null).toMap());
+		 
+		} catch (JwtException e) {
+			 return ResponseEntity.ok(new HttpResponse<>(false,e.getMessage(),null).toMap());
+        }
 	}
 	
 	@GetMapping("/fetch_user_profile")

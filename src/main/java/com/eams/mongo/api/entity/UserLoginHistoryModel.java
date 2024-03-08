@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -20,9 +21,14 @@ public class UserLoginHistoryModel {
 	
    @Id
     private String id;
+  
     private String userId;
-    private Duration  breakTime;
-    private Duration  workedTime;
+    private Duration  breakTime ;
+    private Duration  workedTime ;
+    private LocalDateTime breakStartTime;
+    private boolean isOnBreak = false;
+    private LocalDateTime breakPauseTime;
+    private boolean isPaused = false;
     private LocalDateTime loggedInAt;
     private LocalDateTime loggedOutAt;
     @CreatedDate
@@ -31,10 +37,12 @@ public class UserLoginHistoryModel {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    public String getId() {
+    	return id;
+    }
     public String getUserId() {
     	return userId;
     }
-    
     public void setUserId(String userId) {
      	this.userId = userId;
     }
@@ -69,6 +77,38 @@ public class UserLoginHistoryModel {
 
 	public void setLoggedOutAt(LocalDateTime loggedOutAt) {
 		this.loggedOutAt = loggedOutAt;
+	}
+
+	public LocalDateTime getBreakStartTime() {
+		return breakStartTime;
+	}
+
+	public void setBreakStartTime(LocalDateTime breakStartTime) {
+		this.breakStartTime = breakStartTime;
+	}
+
+	public boolean isOnBreak() {
+		return isOnBreak;
+	}
+
+	public void setOnBreak(boolean isOnBreak) {
+		this.isOnBreak = isOnBreak;
+	}
+
+	public LocalDateTime getBreakPauseTime() {
+		return breakPauseTime;
+	}
+
+	public void setBreakPauseTime(LocalDateTime breakPauseTime) {
+		this.breakPauseTime = breakPauseTime;
+	}
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
 	}
   
 }
