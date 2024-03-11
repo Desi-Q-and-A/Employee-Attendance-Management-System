@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class JwtAuthenticationResponse {
-	
-	  private String token;
-	   
-	  private String refreshToken;
+
+	private String token;
+
+	private String refreshToken;
 
 	public String getToken() {
 		return token;

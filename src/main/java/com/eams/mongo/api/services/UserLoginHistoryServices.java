@@ -10,12 +10,10 @@ import com.eams.mongo.api.entity.UserLoginHistoryModel;
 @Service
 public interface UserLoginHistoryServices {
 
-	
 	UserLoginHistoryModel newLoggedIn(UserLoginHistoryModel loginData);
 
 	Optional<UserLoginHistoryModel> alreadyLoggedIn(String userId, LocalDateTime startOfDay, LocalDateTime endOfDay);
-	
-	UserLoginHistoryModel update_loging_history( String loginId ,UserLoginHistoryModel data);
-	
-	
+
+	UserLoginHistoryModel update_loging_history(String loginId, UserLoginHistoryModel data);
+
 }

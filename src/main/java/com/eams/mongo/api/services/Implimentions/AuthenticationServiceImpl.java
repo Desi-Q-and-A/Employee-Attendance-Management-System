@@ -17,28 +17,25 @@ import com.eams.mongo.api.repo.UserRepository;
 import com.eams.mongo.api.services.AuthenticationService;
 import com.eams.mongo.api.services.JWTService;
 
-
 @Service
 
 public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
-	private  UserRepository userRepository ;
-	 @Autowired
-	private  PasswordEncoder passwordEncoder;
-	 @Autowired
-	 private JWTService jwtService;
-	 @Autowired
-	 private AuthenticationManager authenticationManager;
+	private UserRepository userRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private JWTService jwtService;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-	
 	public UserModel signUp(UserModel data) {
-		
-		userRepository.findByEmail(data.getEmail())
-        .ifPresent(existingUser -> {
-            throw new IllegalArgumentException("User already exists.");
-        });
+
+		userRepository.findByEmail(data.getEmail()).ifPresent(existingUser -> {
+			throw new IllegalArgumentException("User already exists.");
+		});
 		System.out.print(data);
-		UserModel  user = new UserModel();
+		UserModel user = new UserModel();
 		user.setUserName(data.getUserName());
 		user.setEmail(data.getEmail());
 		user.setMobileNumber(data.getMobileNumber());
@@ -46,57 +43,55 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		user.setPassword(passwordEncoder.encode(data.getPassword()));
 		return userRepository.save(user);
 	}
-	
+
 	public JwtAuthenticationResponse signIn(SignInRequest data) {
-		
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getEmail(),data.getPassword()));
+
+		authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(data.getEmail(), data.getPassword()));
 		System.out.print(data + "  SignInRequest");
-		UserModel  user = userRepository.findByEmail(data.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email address !!!") );
-		
+		UserModel user = userRepository.findByEmail(data.getEmail())
+				.orElseThrow(() -> new IllegalArgumentException("Invalid email address !!!"));
+
 		var token = jwtService.generateToken(user);
-		
-		var refreshToken = jwtService.generaterefreshToken( new HashMap<>(), user);
+
+		var refreshToken = jwtService.generaterefreshToken(new HashMap<>(), user);
 		System.out.print(user + "  user");
-		
+
 		JwtAuthenticationResponse res = new JwtAuthenticationResponse();
-		 res.setToken(token);
-		 res.setRefreshToken(refreshToken);
-		 
-		 return res;
-		
+		res.setToken(token);
+		res.setRefreshToken(refreshToken);
+
+		return res;
+
 	}
-	
-	
 
-	    public UserModel updateUserProfile(UserModel data) {
-	    	
-	    	System.out.print(data + "  updateUserProfile");
-	    	UserModel  exiUser = userRepository.findByEmail(data.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email address !!!") );
+	public UserModel updateUserProfile(UserModel data) {
 
-			Optional<UserModel> findUser =  userRepository.findById(exiUser.getUsername());
-			  if (findUser.isPresent()) {
-				  UserModel exUser = findUser.get();
+		System.out.print(data + "  updateUserProfile");
+		UserModel exiUser = userRepository.findByEmail(data.getEmail())
+				.orElseThrow(() -> new IllegalArgumentException("Invalid email address !!!"));
 
-			        if (data.getUserName() != null) {
-			            exUser.setUserName(data.getUserName());
-			        }
-			        if (data.getEmail() != null) {
-			            exUser.setEmail(data.getEmail());
-			        }
-			        if (data.getMobileNumber() != null) {
-			            exUser.setMobileNumber(data.getMobileNumber());
-			        }
-			        if (data.getPassword() != null) {
-			            exUser.setPassword(data.getPassword());
-			        }
-			       
-			       
-	                 
-			        return  userRepository.save(exUser);
-			    }
+		Optional<UserModel> findUser = userRepository.findById(exiUser.getUsername());
+		if (findUser.isPresent()) {
+			UserModel exUser = findUser.get();
 
-			    return null;
+			if (data.getUserName() != null) {
+				exUser.setUserName(data.getUserName());
+			}
+			if (data.getEmail() != null) {
+				exUser.setEmail(data.getEmail());
+			}
+			if (data.getMobileNumber() != null) {
+				exUser.setMobileNumber(data.getMobileNumber());
+			}
+			if (data.getPassword() != null) {
+				exUser.setPassword(data.getPassword());
+			}
+
+			return userRepository.save(exUser);
+		}
+
+		return null;
 	}
-	
 
 }

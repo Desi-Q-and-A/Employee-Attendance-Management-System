@@ -19,54 +19,50 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.eams.mongo.api.entity.Role;
 import com.eams.mongo.api.services.UserServices;
 
-
-
-
-
 @Configuration
 @EnableWebSecurity
 
 public class SecurityConfiguration {
-	
+
 	private final JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter();
 	@Autowired
-	private  UserServices userService;
-	
+	private UserServices userService;
+
 	@Bean
-	 SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		//http.httpBasic(Customizer.withDefaults());
-		http.csrf(AbstractHttpConfigurer :: disable)
-		.authorizeHttpRequests(req -> req.requestMatchers("/**")
-				.permitAll()
-				.requestMatchers("/admin").hasAnyAuthority(Role.ADMIN.name())
-				.requestMatchers("/user").hasAnyAuthority(Role.USER.name())
-				.requestMatchers("/tasks").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
-				.anyRequest().authenticated())
-		.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-		.authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-	
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		// http.httpBasic(Customizer.withDefaults());
+		http.csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(req -> req.requestMatchers("/**").permitAll().requestMatchers("/super_admin")
+						.hasAnyAuthority(Role.SUPERADMIN.name()).requestMatchers("/admin")
+						.hasAnyAuthority(Role.ADMIN.name()).requestMatchers("/user").hasAnyAuthority(Role.USER.name())
+						.requestMatchers("/tasks").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name()).anyRequest()
+						.authenticated())
+				.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authenticationProvider(authenticationProvider())
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
 		return http.build();
-		
-		
+
 	}
 
 	@Bean
-	 AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider =  new DaoAuthenticationProvider();
+	AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userService.userDetailsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
 
 	@Bean
-	 PasswordEncoder passwordEncoder() {
-		
+	PasswordEncoder passwordEncoder() {
+
 		return new BCryptPasswordEncoder();
 	}
+
 	@Bean
-	 AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
-		
+
 	}
 
 }

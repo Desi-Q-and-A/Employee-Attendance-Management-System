@@ -12,131 +12,132 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "Tasks")
 public class TaskModel {
-	
-	 @Id
-	    private String id;
 
-	    private String userId;
-	    private String taskName;
-	    private Priority priority;
-	    private TaskActions taskActions;
-	    private String createdBy;
-	    private String assignedTo;
-	    private List<String> observers;
-	    private boolean isCompleted;
-	    private TaskStatus taskStatus;
-	    private Duration  timeTaken;
-	    @Field("startedAt")
-	    private LocalDateTime startedAt;
-	    private LocalDateTime completedAt;
+	@Id
+	private String id;
 
-	    @CreatedDate
-	    private LocalDateTime createdAt;
+	private String userId;
+	private String taskName;
+	private Priority priority;
+	private TaskActions taskActions;
+	private String createdBy;
+	private String assignedTo;
+	private List<String> observers;
+	private boolean isCompleted;
+	private TaskStatus taskStatus;
+	private Duration timeTaken;
+	@Field("startedAt")
+	private LocalDateTime startedAt;
+	private LocalDateTime completedAt;
 
-	    @LastModifiedDate
-	    private LocalDateTime updatedAt;
+	@CreatedDate
+	private LocalDateTime createdAt;
 
-		public String getTaskId() {
-			return id;
-		}
-		public void setTaskId(String taskId) {
-			this.id = taskId;
-		}
+	@LastModifiedDate
+	private LocalDateTime updatedAt;
 
+	public String getTaskId() {
+		return id;
+	}
 
-		public String getUserId() {
-			return userId;
-		}
+	public void setTaskId(String taskId) {
+		this.id = taskId;
+	}
 
-		public void setUserId(String userId) {
-			this.userId = userId;
-		}
+	public String getUserId() {
+		return userId;
+	}
 
-		public String getTaskName() {
-			return taskName;
-		}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-		public void setTaskName(String taskName) {
-			this.taskName = taskName;
-		}
+	public String getTaskName() {
+		return taskName;
+	}
 
-		public Priority getPriority() {
-			return priority;
-		}
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
 
-		public void setPriority(Priority priority) {
-			this.priority = priority;
-		}
+	public Priority getPriority() {
+		return priority;
+	}
 
-		public String getCreatedBy() {
-			return createdBy;
-		}
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
 
-		public void setCreatedBy(String createdBy) {
-			this.createdBy = createdBy;
-		}
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
-		public String getAssignedTo() {
-			return assignedTo;
-		}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 
-		public void setAssignedTo(String assignedTo) {
-			this.assignedTo = assignedTo;
-		}
+	public String getAssignedTo() {
+		return assignedTo;
+	}
 
-		public List<String> getObservers() {
-			return observers;
-		}
+	public void setAssignedTo(String assignedTo) {
+		this.assignedTo = assignedTo;
+	}
 
-		public void setObservers(List<String> observers) {
-			this.observers = observers;
-		}
+	public List<String> getObservers() {
+		return observers;
+	}
 
-		public boolean getIsCompleted() {
-			return isCompleted;
-		}
+	public void setObservers(List<String> observers) {
+		this.observers = observers;
+	}
 
-		public void setIsCompleted(boolean isCompleted) {
-			this.isCompleted = isCompleted;
-		}
+	public boolean getIsCompleted() {
+		return isCompleted;
+	}
 
-		public TaskStatus getTaskStatus() {
-			return taskStatus;
-		}
+	public void setIsCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
+	}
 
-		public void setTaskStatus(TaskStatus taskStatus) {
-			this.taskStatus = taskStatus;
-		}
+	public TaskStatus getTaskStatus() {
+		return taskStatus;
+	}
 
-		public Duration getTimeTaken() {
-			return timeTaken;
-		}
+	public void setTaskStatus(TaskStatus taskStatus) {
+		this.taskStatus = taskStatus;
+	}
 
-		public void setTimeTaken(Duration timeTaken) {
-			this.timeTaken = timeTaken;
-		}
+	public Duration getTimeTaken() {
+		return timeTaken;
+	}
 
-		public LocalDateTime getStartedAt() {
-			return startedAt;
-		}
+	public void setTimeTaken(Duration timeTaken) {
+		this.timeTaken = timeTaken;
+	}
 
-		public void setStartedAt(LocalDateTime startedAt) {
-			this.startedAt = startedAt;
-		}
+	public LocalDateTime getStartedAt() {
+		return startedAt;
+	}
 
-		public LocalDateTime getCompletedAt() {
-			return completedAt;
-		}
+	public void setStartedAt(LocalDateTime startedAt) {
+		this.startedAt = startedAt;
+	}
 
-		public void setCompletedAt(LocalDateTime completedAt) {
-			this.completedAt = completedAt;
-		}
-		public TaskActions getTaskActions() {
-			return taskActions;
-		}
-		public void setTaskActions(TaskActions taskActions) {
-			this.taskActions = taskActions;
-		}
+	public LocalDateTime getCompletedAt() {
+		return completedAt;
+	}
 
-		
+	public void setCompletedAt(LocalDateTime completedAt) {
+		this.completedAt = completedAt;
+	}
+
+	public TaskActions getTaskActions() {
+		return taskActions;
+	}
+
+	public void setTaskActions(TaskActions taskActions) {
+		this.taskActions = taskActions;
+	}
+
 }
